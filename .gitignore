@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.logs/
+landing-screenshot.png
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
