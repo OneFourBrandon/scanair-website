@@ -1,6 +1,9 @@
 node_modules/
 dist/
 .logs/
+.idea/
+*.splat
+*.psd
 landing-screenshot.png
 .env
 .env.*

@@ -17,6 +17,15 @@ npm run build
 
 The site is a Vite static build. Deploy the `dist/` output to Cloudflare, Netlify, or another static host.
 
+## Docker
+
+```bash
+docker build -t scanair-website .
+docker run --rm -p 8080:80 scanair-website
+```
+
+Then open `http://localhost:8080`.
+
 ## Assets
 
 - `public/assets/scanair-logo-red.png` comes from `C:\Users\devil\Desktop\ScanAir\Graphics\Export\1024w\Asset 4.png`.

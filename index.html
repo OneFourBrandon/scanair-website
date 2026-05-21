@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="ScanAir turns drone scans into 3D reconstruction, redline previews, and confident project planning."
+      content="ScanAir provides drone services, 3D site documentation, software tools, and local aerial capture for North Bay, Ontario."
     />
-    <meta property="og:title" content="ScanAir | Drone scans for confident builds" />
+    <meta property="og:title" content="ScanAir | Drone Services & Tools" />
     <meta
       property="og:description"
-      content="Drone scans, 3D reconstruction, and realistic previews before work begins."
+      content="Drone capture, 3D site context, visual previews, and a consumer DJI drone path creator for DJI Fly, serving North Bay, Ontario."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/assets/hero-property-scan.png" />
-    <title>ScanAir | Drone scans for confident builds</title>
-    <link rel="icon" type="image/png" href="/assets/scanair-logo-red.png" />
+    <title>ScanAir | Drone Scanning Tools & Services</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
@@ -25,154 +25,183 @@
         <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
       </a>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="#product">Product</a>
-        <a href="#solutions">Solutions</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#process">Process</a>
+        <a href="#services">Services</a>
+        <a href="#solutions">Use Cases</a>
+        <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
       </nav>
       <div class="nav-actions">
-        <a class="login-link" href="https://path.scanair.ca">Log in</a>
-        <a class="button button-primary" href="https://path.scanair.ca">Start Planning</a>
+        <a class="button button-primary" href="/contact.html">Contact Us</a>
       </div>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-background" aria-hidden="true"></div>
+        <div
+          class="hero-background hero-splat-stage"
+          data-splat-showcase
+          data-manifest-url="/splats/splats.json"
+          data-r2-base-url=""
+          data-rotation-ms="14000"
+          data-orbit-speed="0.06"
+          data-render-fps="60"
+          data-background-color="#090d11"
+          aria-hidden="true"
+        >
+          <img class="hero-splat-fallback" src="/assets/hero-property-scan.png" alt="" />
+          <canvas class="hero-splat-canvas" data-splat-canvas></canvas>
+          <div class="hero-splat-status" data-splat-status>
+            <span data-splat-status-label>Loading 3DGS capture</span>
+            <strong data-splat-progress>0%</strong>
+          </div>
+        </div>
         <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-content">
-          <p class="eyebrow">Drone scan to redline preview</p>
-          <h1 id="hero-title">See it. Plan it. Build with <span>confidence.</span></h1>
+          <p class="eyebrow">Drone services and software</p>
+          <h1 id="hero-title">Drone capture and software for <span>North Bay</span> teams.</h1>
           <div class="hero-rule" aria-hidden="true"></div>
           <p class="hero-copy">
-            Drone scans, 3D reconstruction, and realistic previews before work begins.
+            ScanAir serves North Bay, Ontario with aerial capture, 3D site context, and practical
+            software tools that help properties, projects, and places move from field capture to
+            clearer decisions.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary button-large" href="https://path.scanair.ca">
-              Start Planning
+            <a class="button button-primary button-large" href="/contact.html">
+              Contact Us
               <span aria-hidden="true">&rarr;</span>
             </a>
-            <a class="button button-secondary button-large" href="#demo">View Demo</a>
+            <a class="button button-secondary button-large" href="#tools">DJI Drone Path Creator</a>
           </div>
         </div>
       </section>
 
-      <section class="feature-band" id="product" aria-label="Core ScanAir features">
+      <section class="feature-band" id="services" aria-label="ScanAir local services">
         <article class="feature-item">
           <span class="feature-icon target-icon" aria-hidden="true"></span>
           <div>
-            <h2>Accurate Capture</h2>
-            <p>High-resolution drone scans capture every detail from every angle.</p>
+            <h2>Site Capture</h2>
+            <p>High-resolution drone imagery for roofs, yards, driveways, elevations, and hard-to-reach exterior details.</p>
           </div>
         </article>
         <article class="feature-item">
           <span class="feature-icon cube-icon" aria-hidden="true"></span>
           <div>
-            <h2>True-to-Life 3D</h2>
-            <p>Rebuild properties in 3D for precise, measurable previews.</p>
+            <h2>3D Documentation</h2>
+            <p>Property reconstructions and visual records that make scope discussions easier to review and share.</p>
           </div>
         </article>
         <article class="feature-item">
           <span class="feature-icon pencil-icon" aria-hidden="true"></span>
           <div>
-            <h2>Redline Preview</h2>
-            <p>Explore options with clear markup, scope notes, and visual context.</p>
+            <h2>Project Previews</h2>
+            <p>Marked-up visuals and practical planning views for exterior renovations, landscaping, and site improvements.</p>
           </div>
         </article>
+        <div class="feature-cta">
+          <div>
+            <strong>Have a site that needs a clearer view?</strong>
+            <p>Tell us what you need captured, documented, or turned into a planning visual.</p>
+          </div>
+          <a class="button button-primary" href="/contact.html">Request a Project</a>
+        </div>
       </section>
 
       <section class="preview-section" id="demo">
-        <div class="section-copy">
-          <p class="eyebrow">Preview. Compare. Choose.</p>
-          <h2>Turn a property scan into a plan the client can understand.</h2>
-          <p>
-            ScanAir gives contractors and property teams a clear visual path from the existing site
-            to the proposed work, before materials are ordered or crews arrive.
-          </p>
-        </div>
         <div class="preview-grid" aria-label="ScanAir planning preview examples">
           <article class="preview-card before-card">
-            <span>Before scan</span>
-            <strong>Existing conditions</strong>
+            <h2 class="preview-card-title">Our Services</h2>
+            <span>General Services</span>
+            <strong>Aerial Capture</strong>
           </article>
           <article class="preview-card plan-card">
-            <span>3D reconstruction</span>
-            <strong>Measured model</strong>
+            <span>3D Capture</span>
+            <strong>Gaussian Splatting / Photogrammetry</strong>
           </article>
           <article class="preview-card redline-card">
-            <span>Redline preview</span>
-            <strong>Scope decisions</strong>
+            <span>Worksite Capture</span>
+            <strong>3D flight path</strong>
           </article>
-        </div>
-      </section>
-
-      <section class="process-section" id="process">
-        <div class="process-panel">
-          <div class="section-copy">
-            <p class="eyebrow">Built for contractors</p>
-            <h2>Clearer planning from first scan to final quote.</h2>
-          </div>
-          <ol class="process-list">
-            <li>
-              <span>01</span>
-              <div>
-                <h3>Capture the property</h3>
-                <p>Plan drone paths, scan the site, and collect the coverage needed for reconstruction.</p>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <h3>Reconstruct the space</h3>
-                <p>Create visual context for measurements, material options, and scope discussions.</p>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <h3>Preview the work</h3>
-                <p>Share clean redline options that help clients understand decisions before approving.</p>
-              </div>
-            </li>
-          </ol>
         </div>
       </section>
 
       <section class="solutions-section" id="solutions">
         <div class="solution-copy">
-          <p class="eyebrow">Made for exterior projects</p>
-          <h2>Driveways, decks, landscaping, siding, lighting, and more.</h2>
+          <p class="eyebrow">Use cases</p>
+          <h2>Drone capture and 3D context for places that need a clearer view.</h2>
+          <p>
+            ScanAir supports teams that need practical aerial documentation, 3D site context,
+            or visual planning material for spaces that are difficult to explain from the ground.
+          </p>
+          <a class="button button-outline solution-cta" href="/contact.html">Discuss a Use Case</a>
         </div>
-        <div class="solution-strip" aria-label="Project categories">
-          <span>Driveways</span>
-          <span>Decks &amp; Stairs</span>
-          <span>Fences</span>
-          <span>Gardens & Planting</span>
-          <span>Patios & Fire Features</span>
-          <span>Siding & Finishes</span>
-          <span>Lighting</span>
+        <div class="solution-strip" aria-label="Use case categories">
+          <article class="use-case-tile industrial-tile">
+            <span>01</span>
+            <strong>Industrial</strong>
+            <p>Facility context, site records, and inspection views for complex exterior spaces.</p>
+          </article>
+          <article class="use-case-tile tourism-tile">
+            <span>02</span>
+            <strong>Tourism</strong>
+            <p>Destination visuals and immersive 3D context for places people want to explore.</p>
+          </article>
+          <article class="use-case-tile real-estate-tile">
+            <span>03</span>
+            <strong>Real Estate</strong>
+            <p>Property perspectives that make listings and site conversations easier to understand.</p>
+          </article>
+          <article class="use-case-tile construction-tile">
+            <span>04</span>
+            <strong>Construction</strong>
+            <p>Progress records, planning views, and clearer owner-facing visual references.</p>
+          </article>
+          <article class="use-case-tile public-tile">
+            <span>05</span>
+            <strong>Public Spaces</strong>
+            <p>Spatial documentation for parks, campuses, streetscapes, and shared outdoor areas.</p>
+          </article>
+          <article class="use-case-tile event-tile">
+            <span>06</span>
+            <strong>Event Sites</strong>
+            <p>Coverage maps and aerial context for temporary layouts and site logistics.</p>
+          </article>
+          <article class="use-case-tile more-tile">
+            <span>07</span>
+            <strong>And More</strong>
+            <p>Custom capture workflows for unique spaces and unusual site constraints.</p>
+          </article>
         </div>
       </section>
 
-      <section class="cta-section" id="pricing">
-        <div>
-          <p class="eyebrow">Precise scans. Clear previews.</p>
-          <h2>Confident builds start before the quote.</h2>
-        </div>
-        <a class="button button-primary button-large" href="https://path.scanair.ca">
-          Start Planning
-          <span aria-hidden="true">&rarr;</span>
-        </a>
+      <section class="tools-section" id="tools" aria-labelledby="tools-title">
+        <article class="tool-card">
+          <div>
+            <span class="tool-label">Available now</span>
+            <h2 id="tools-title">DJI Drone Path Creator</h2>
+            <p>
+              Build consumer DJI drone paths for DJI Fly with a 3D drone path editor tailored for
+              3D scanning, photogrammetry, coverage planning, and cleaner scan routes before takeoff.
+            </p>
+          </div>
+          <div class="tool-actions">
+            <a class="button button-primary button-large" href="https://path.scanair.ca">
+              Open Tool
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="button button-secondary button-large" href="/contact.html">Contact Us</a>
+          </div>
+        </article>
       </section>
+
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" id="contact">
       <a class="footer-brand" href="/" aria-label="ScanAir home">
         <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
         <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
       </a>
-      <p>Drone path creation, reconstruction planning, and redline previews.</p>
-      <a href="https://path.scanair.ca">Open ScanAir Path Creator</a>
+      <p>Local drone scanning, exterior documentation, and planning visuals.</p>
+      <a href="/contact.html">Contact Us</a>
     </footer>
+    <script type="module" src="/src/hero-splats.ts"></script>
   </body>
 </html>

@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.logs
+landing-screenshot.png
+npm-debug.log
+Dockerfile
+README.md
+HANDOFF.md
