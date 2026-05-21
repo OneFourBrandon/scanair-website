@@ -1,6 +1,6 @@
 {
   "baseUrl": "/splats/",
-  "r2BaseUrl": "",
+  "r2BaseUrl": "https://cdn.scanair.ca/",
   "rotationMs": 10000,
   "fallbackSrc": "/assets/hero-property-scan.png",
   "items": [

@@ -68,4 +68,5 @@ If the camera is looking away from the subject, adjust the `y` value first. A 18
 
 The splat switches after whichever happens first: `rotationMs` or one full orbit.
 
-When the captures move to Cloudflare R2, keep the same `items` list and set `r2BaseUrl` to the public R2 folder URL.
+The live captures are served from the `scanair-website` Cloudflare R2 bucket through `https://cdn.scanair.ca/`.
+Keep the same `items` list and set `r2BaseUrl` to the public R2 folder URL when moving between local files and R2.
