@@ -10,7 +10,7 @@
 	"positionOffset": [20, -10, 20],
 	"rotation": [-0.2, 3.65, 0],
 	"backgroundColor": "#B9D7EC",
-	"orbitSpeed": 0.15,
+	"orbitSpeed": 0.13,
 	"renderFps": 40
 	},
 	{
@@ -19,7 +19,7 @@
 	"positionOffset": [7, -5, 5],
 	"rotation": [-0.15, 3.8, 0],
 	"backgroundColor": "#B9D7EC",
-	"orbitSpeed": 0.25,
+	"orbitSpeed": 0.15,
 	"renderFps": 40
 	}
   ]

@@ -466,6 +466,7 @@ h1 span {
 }
 
 .preview-section,
+.samples-section,
 .solutions-section,
 .tools-section {
   width: min(1440px, calc(100% - 48px));
@@ -588,6 +589,147 @@ h1 span {
   border: 2px solid var(--oxblood-bright);
   border-radius: 4px;
   transform: skew(-8deg);
+}
+
+.samples-section {
+  padding-bottom: clamp(80px, 10vw, 132px);
+}
+
+.samples-header {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.62fr) minmax(420px, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: end;
+  margin-bottom: clamp(24px, 4vw, 42px);
+}
+
+.samples-header h2 {
+  max-width: 760px;
+  margin-bottom: 0;
+  font-size: clamp(2.35rem, 4.8vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.samples-header p:not(.eyebrow) {
+  max-width: 690px;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.samples-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
+  grid-auto-rows: minmax(270px, 1fr);
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.sample-card {
+  --sample-image: url("../public/assets/preview-3d-reconstruction.png");
+  overflow: hidden;
+  color: var(--white);
+  border-radius: 4px;
+  background: var(--graphite);
+  box-shadow: 0 20px 56px rgba(31, 35, 40, 0.16);
+}
+
+.sample-card-large {
+  grid-row: span 2;
+}
+
+.supersplat-embed {
+  position: relative;
+  min-height: 270px;
+  overflow: hidden;
+  background: #090d11;
+}
+
+.sample-card-large .supersplat-embed {
+  min-height: clamp(520px, 70vh, 760px);
+}
+
+.supersplat-embed iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #090d11;
+}
+
+.sample-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(22px, 3vw, 34px);
+  background:
+    linear-gradient(180deg, rgba(31, 35, 40, 0.05), rgba(31, 35, 40, 0.86)),
+    linear-gradient(135deg, rgba(44, 106, 143, 0.18), rgba(91, 15, 20, 0.18)),
+    var(--sample-image) center / cover;
+}
+
+.sample-placeholder::after {
+  position: absolute;
+  inset: 18px;
+  content: "";
+  border: 1px dashed rgba(255, 255, 255, 0.34);
+  border-radius: 4px;
+}
+
+.sample-placeholder span,
+.sample-placeholder strong {
+  position: relative;
+  z-index: 1;
+}
+
+.sample-placeholder span,
+.sample-caption span {
+  margin-bottom: 8px;
+  color: #a9d1e8;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sample-placeholder strong {
+  display: block;
+  max-width: 520px;
+  font-size: clamp(2rem, 4.5vw, 4.6rem);
+  line-height: 0.96;
+}
+
+.sample-caption {
+  display: grid;
+  gap: 8px;
+  padding: clamp(18px, 2.5vw, 26px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sample-caption span {
+  margin: 0;
+}
+
+.sample-caption strong {
+  font-size: clamp(1.12rem, 1.8vw, 1.45rem);
+  line-height: 1.1;
+}
+
+.exterior-sample {
+  --sample-image: url("../public/assets/preview-drone-capture.png");
+}
+
+.property-sample {
+  --sample-image: url("../public/assets/preview-3d-reconstruction.png");
+}
+
+.public-sample {
+  --sample-image: url("../public/assets/preview-flight-planning.png");
 }
 
 .solutions-section {
@@ -1028,6 +1170,7 @@ h1 span {
 
   .feature-band,
   .preview-section,
+  .samples-section,
   .solutions-section,
   .tools-section,
   .contact-section {
@@ -1060,7 +1203,12 @@ h1 span {
   }
 
   .preview-grid,
+  .samples-header,
   .solution-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .samples-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1070,7 +1218,8 @@ h1 span {
 
   .before-card,
   .plan-card,
-  .redline-card {
+  .redline-card,
+  .sample-card-large {
     grid-column: auto;
     grid-row: auto;
   }
@@ -1143,6 +1292,7 @@ h1 span {
 
   .feature-band,
   .preview-section,
+  .samples-section,
   .solutions-section,
   .tools-section,
   .contact-section {
@@ -1167,8 +1317,14 @@ h1 span {
   }
 
   .section-copy h2,
+  .samples-header h2,
   .solution-copy h2 {
     font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .sample-card-large .supersplat-embed,
+  .supersplat-embed {
+    min-height: 340px;
   }
 
   .tool-card {

@@ -31,6 +31,10 @@ Then open `http://localhost:8080`.
 - `public/assets/scanair-logo-red.png` comes from `C:\Users\devil\Desktop\ScanAir\Graphics\Export\1024w\Asset 4.png`.
 - `public/assets/hero-property-scan.png` comes from the generated ScanAir landing page hero concept.
 
+## Samples
+
+The homepage Samples section is ready for SuperSplat embeds. Add a shared SuperSplat viewer URL to a sample card's `data-supersplat-src` value in `index.html`; the page lazy-loads the iframe when the section nears the viewport.
+
 ## Palette
 
 - Oxblood red: `#5B0F14`

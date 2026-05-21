@@ -63,6 +63,11 @@ type NormalizedCapture = {
   far?: number;
 };
 
+type LoadedCapture = {
+  scene: SPLAT.Scene;
+  splat: SPLAT.Splat;
+};
+
 declare global {
   interface Window {
     ScanAirSplatShowcase?: StageRuntimeConfig;
@@ -125,6 +130,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
   let activeFrameInterval = 1000 / config.renderFps;
   let orbitStartTime = 0;
   let isDisposed = false;
+  const loadedCaptureCache = new Map<string, Promise<LoadedCapture>>();
 
   const pointer = { x: 0, y: 0 };
   const pointerTarget = { x: 0, y: 0 };
@@ -142,6 +148,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     window.removeEventListener("pointermove", handlePointerMove);
     window.removeEventListener("pointerleave", handlePointerLeave);
     window.removeEventListener("pagehide", cleanup);
+    loadedCaptureCache.clear();
     renderer?.dispose();
   };
   window.__scanAirHeroSplatDispose = cleanup;
@@ -264,6 +271,39 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     }, getCaptureDisplayMs(activeCapture, rotationMs));
   };
 
+  const getLoadedCapture = (
+    capture: NormalizedCapture,
+    onProgress: (progress: number) => void,
+  ) => {
+    const cachedLoad = loadedCaptureCache.get(capture.url);
+
+    if (cachedLoad) {
+      return {
+        isCached: true,
+        load: cachedLoad,
+      };
+    }
+
+    const load = (async () => {
+      const cachedScene = new SPLAT.Scene();
+      const cachedSplat = await SPLAT.Loader.LoadAsync(capture.url, cachedScene, onProgress);
+      return {
+        scene: cachedScene,
+        splat: cachedSplat,
+      };
+    })();
+
+    loadedCaptureCache.set(capture.url, load);
+    void load.catch(() => {
+      loadedCaptureCache.delete(capture.url);
+    });
+
+    return {
+      isCached: false,
+      load,
+    };
+  };
+
   const loadCapture = async (
     captures: NormalizedCapture[],
     index: number,
@@ -286,15 +326,19 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
 
     stageElement.classList.add("is-loading");
     stageElement.classList.remove("is-error");
-    setStatus(`Loading ${capture.label}`, "0%");
 
     try {
-      const nextScene = new SPLAT.Scene();
-      const splat = await SPLAT.Loader.LoadAsync(capture.url, nextScene, (value) => {
+      const cachedCapture = getLoadedCapture(capture, (value) => {
         if (!isDisposed && loadId === activeLoadId) {
           setStatus(`Loading ${capture.label}`, `${Math.round(value * 100)}%`);
         }
       });
+      setStatus(
+        cachedCapture.isCached ? `Restoring ${capture.label}` : `Loading ${capture.label}`,
+        cachedCapture.isCached ? "" : "0%",
+      );
+
+      const loadedCapture = await cachedCapture.load;
 
       if (isDisposed || loadId !== activeLoadId || !camera || !renderer || !scene) {
         return;
@@ -309,8 +353,8 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
         }
       }
 
-      scene = nextScene;
-      orbitCenter = splat.position;
+      scene = loadedCapture.scene;
+      orbitCenter = loadedCapture.splat.position;
       basePositionOffset = vectorFromArray(capture.positionOffset) || BASE_ZOOM_OFFSET;
       baseRotation = vectorFromArray(capture.rotation) || BASE_ROTATION_OFFSET;
       activeOrbitSpeed = capture.orbitSpeed;
