@@ -1193,13 +1193,14 @@ h1 span {
   color: var(--oxblood-bright);
 }
 
-.legal-contact-reveal {
+.legal-contact-grid .legal-contact-reveal {
   color: var(--graphite);
   border-color: rgba(31, 35, 40, 0.18);
   background: rgba(255, 255, 255, 0.74);
 }
 
-.legal-contact-reveal:hover {
+.legal-contact-grid .legal-contact-reveal:hover {
+  color: var(--graphite);
   border-color: rgba(157, 31, 37, 0.42);
   background: var(--white);
 }
