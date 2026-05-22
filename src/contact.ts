@@ -9,15 +9,22 @@ const email = decodeContact([
 const emailHref = `mailto:${email}`;
 
 const emailTarget = document.querySelector<HTMLElement>('[data-contact-value="email"]');
+const emailRevealButton = document.querySelector<HTMLButtonElement>("[data-email-reveal]");
 
-if (emailTarget) {
+const revealEmail = () => {
+  if (!emailTarget) {
+    return;
+  }
+
   const link = document.createElement("a");
   link.href = emailHref;
   link.textContent = email;
   link.setAttribute("aria-label", `Email address: ${email}`);
 
   emailTarget.replaceChildren(link);
-}
+};
+
+emailRevealButton?.addEventListener("click", revealEmail);
 
 const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
 
