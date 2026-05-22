@@ -19,26 +19,49 @@ if (section) {
   let routeLen = 0;
   let routeDrawn = false;
 
-  /* The flight track is a straight vertical rail pinned to the left
-     edge of the use-case list — a plumb line the waypoint rides down.
-     The SVG viewBox is 0–100 and stretches to the section, so the
-     coordinates below are percentages of section width / height. */
+  /* The flight track is a squiggly survey path that sweeps down the
+     gutter to the LEFT of the use-case list — centred in the empty
+     band between the screen edge and where the text starts, with the
+     waypoint "drone" riding the curve. The SVG viewBox is 0–100 with
+     preserveAspectRatio="none", so the coordinates below are
+     percentages of section width / height. */
   const buildRoute = () => {
     if (!shell || !list || !route) {
       return;
     }
     const sectionWidth = section.offsetWidth;
     const sectionHeight = section.offsetHeight;
-    const railX = (shell.offsetLeft / sectionWidth) * 100;
+
+    /* Centre the path in the gutter: halfway between the screen edge
+       (0) and where the shell's text content begins. */
+    const gutterPx = shell.offsetLeft;
+    const centerXpx = gutterPx / 2;
+    const centerX = (centerXpx / sectionWidth) * 100;
+
+    /* Squiggle amplitude, kept inside the gutter so the curve never
+       reaches the screen edge or overlaps the text. */
+    const ampPx = Math.min(centerXpx * 0.62, 46);
+    const amp = (ampPx / sectionWidth) * 100;
+
     const listTop = shell.offsetTop + list.offsetTop;
     const listBottom = listTop + list.offsetHeight;
     const y1 = ((listTop - 18) / sectionHeight) * 100;
     const y2 = ((listBottom + 18) / sectionHeight) * 100;
 
-    route.setAttribute(
-      "d",
-      `M ${railX.toFixed(2)} ${y1.toFixed(2)} L ${railX.toFixed(2)} ${y2.toFixed(2)}`,
-    );
+    /* Roughly one half-wave per 12% of section height. */
+    const waves = Math.max(4, Math.round((y2 - y1) / 12));
+    const seg = (y2 - y1) / waves;
+
+    let d = `M ${centerX.toFixed(2)} ${y1.toFixed(2)}`;
+    for (let i = 0; i < waves; i += 1) {
+      const dir = i % 2 === 0 ? 1 : -1;
+      const cx = centerX + dir * amp;
+      const cy = y1 + seg * (i + 0.5);
+      const ey = y1 + seg * (i + 1);
+      d += ` Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${centerX.toFixed(2)} ${ey.toFixed(2)}`;
+    }
+
+    route.setAttribute("d", d);
     routeLen = route.getTotalLength();
   };
 
