@@ -31,7 +31,7 @@
         <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
       </nav>
       <div class="nav-actions">
-        <a class="button button-primary nav-cta" href="/contact.html">Contact Us</a>
+        <a class="button button-primary nav-cta" href="/contact">Contact Us</a>
         <button
           class="nav-toggle"
           type="button"
@@ -52,7 +52,7 @@
         <a href="/#solutions">Use Cases</a>
         <a href="/#samples">Samples</a>
         <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
-        <a class="button button-primary" href="/contact.html">Contact Us</a>
+        <a class="button button-primary" href="/contact">Contact Us</a>
       </nav>
     </header>
 
@@ -347,19 +347,9 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <a class="footer-brand" href="/" aria-label="ScanAir home">
-        <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
-        <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
-      </a>
-      <p>Local drone scanning, exterior documentation, and planning visuals.</p>
-      <nav class="legal-footer-links" aria-label="Legal">
-        <a href="/contact.html">Contact Us</a>
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-      </nav>
-    </footer>
-    <script type="module" src="/src/contact.ts"></script>
-    <script type="module" src="/src/nav.ts"></script>
+    <div data-site-footer></div>
+    <script type="module" src="/src/components/footer.ts"></script>
+    <script type="module" src="/src/components/contact.ts"></script>
+    <script type="module" src="/src/components/nav.ts"></script>
   </body>
 </html>

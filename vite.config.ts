@@ -1,4 +1,4 @@
-import { readdir, rm } from "node:fs/promises";
+import { copyFile, mkdir, readdir, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig, type Plugin } from "vite";
 
@@ -25,8 +25,47 @@ function removeLocalSplatAssets(): Plugin {
   };
 }
 
+function prettyHtmlRoutes(): Plugin {
+  const routes = new Map([
+    ["/contact", "/contact.html"],
+    ["/contact/", "/contact.html"],
+    ["/privacy", "/privacy.html"],
+    ["/privacy/", "/privacy.html"],
+    ["/terms", "/terms.html"],
+    ["/terms/", "/terms.html"],
+  ]);
+
+  return {
+    name: "pretty-html-routes",
+    configureServer(server) {
+      server.middlewares.use((request, _response, next) => {
+        const requestUrl = request.url || "";
+        const [pathname, query] = requestUrl.split("?");
+        const target = routes.get(pathname);
+
+        if (target) {
+          request.url = query ? `${target}?${query}` : target;
+        }
+
+        next();
+      });
+    },
+    async writeBundle() {
+      const routeNames = ["contact", "privacy", "terms"];
+
+      await Promise.all(
+        routeNames.map(async (routeName) => {
+          const routeDir = new URL(`./dist/${routeName}/`, import.meta.url);
+          await mkdir(routeDir, { recursive: true });
+          await copyFile(new URL(`./dist/${routeName}.html`, import.meta.url), new URL("index.html", routeDir));
+        }),
+      );
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [removeLocalSplatAssets()],
+  plugins: [removeLocalSplatAssets(), prettyHtmlRoutes()],
   build: {
     rollupOptions: {
       input: {
