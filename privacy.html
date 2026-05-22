@@ -58,13 +58,15 @@
 
     <main class="legal-main">
       <section class="legal-hero" aria-labelledby="privacy-title">
-        <p class="eyebrow">Legal</p>
-        <h1 id="privacy-title">Privacy Policy</h1>
-        <p>
-          This policy explains how ScanAir handles personal information for website inquiries,
-          local drone services, 3D site documentation, and related software tools.
-        </p>
-        <span>Last updated: May 21, 2026</span>
+        <div class="legal-shell">
+          <p class="eyebrow">Legal</p>
+          <h1 id="privacy-title">Privacy Policy</h1>
+          <p>
+            This policy explains how ScanAir handles personal information for website inquiries,
+            local drone services, 3D site documentation, and related software tools.
+          </p>
+          <span class="legal-updated">Last updated: May 21, 2026</span>
+        </div>
       </section>
 
       <section class="legal-content" aria-label="Privacy Policy">
@@ -355,7 +357,11 @@
         <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
       </a>
       <p>Local drone scanning, exterior documentation, and planning visuals.</p>
-      <a href="/contact.html">Contact Us</a>
+      <nav class="legal-footer-links" aria-label="Legal">
+        <a href="/contact.html">Contact Us</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+      </nav>
     </footer>
     <script type="module" src="/src/contact.ts"></script>
     <script type="module" src="/src/nav.ts"></script>

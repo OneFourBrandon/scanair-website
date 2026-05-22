@@ -58,13 +58,15 @@
 
     <main class="legal-main">
       <section class="legal-hero" aria-labelledby="terms-title">
-        <p class="eyebrow">Legal</p>
-        <h1 id="terms-title">Terms of Service</h1>
-        <p>
-          These terms apply to use of the ScanAir website, project inquiries, local drone services,
-          3D site documentation, software tools, and related deliverables.
-        </p>
-        <span>Last updated: May 21, 2026</span>
+        <div class="legal-shell">
+          <p class="eyebrow">Legal</p>
+          <h1 id="terms-title">Terms of Service</h1>
+          <p>
+            These terms apply to use of the ScanAir website, project inquiries, local drone services,
+            3D site documentation, software tools, and related deliverables.
+          </p>
+          <span class="legal-updated">Last updated: May 21, 2026</span>
+        </div>
       </section>
 
       <section class="legal-content" aria-label="Terms of Service">
@@ -530,7 +532,11 @@
         <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
       </a>
       <p>Local drone scanning, exterior documentation, and planning visuals.</p>
-      <a href="/contact.html">Contact Us</a>
+      <nav class="legal-footer-links" aria-label="Legal">
+        <a href="/contact.html">Contact Us</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+      </nav>
     </footer>
     <script type="module" src="/src/contact.ts"></script>
     <script type="module" src="/src/nav.ts"></script>
