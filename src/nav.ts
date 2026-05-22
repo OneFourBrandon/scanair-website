@@ -1,3 +1,5 @@
+/* Mobile navigation, header scroll state, and scroll reveal. */
+
 const header = document.querySelector<HTMLElement>(".site-header");
 const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
 const menu = document.getElementById("mobile-menu");
@@ -42,6 +44,52 @@ if (header && toggle && menu) {
       setOpen(false);
     }
   });
+}
+
+/* Solid header once the page is scrolled. */
+if (header) {
+  const syncScrollState = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+
+  syncScrollState();
+  window.addEventListener("scroll", syncScrollState, { passive: true });
+}
+
+/* Scroll reveal — gated behind a JS class so content stays visible without JS. */
+const revealSelector = [
+  ".section-rule",
+  ".section-head",
+  ".timeline-step",
+  ".samples-carousel",
+  ".cta-strip",
+  ".usecases-aside",
+  ".tools-content",
+  ".contact-aside-inner",
+  ".contact-form",
+].join(",");
+
+const revealTargets = Array.from(
+  document.querySelectorAll<HTMLElement>(revealSelector),
+);
+
+if (revealTargets.length && "IntersectionObserver" in window) {
+  document.documentElement.classList.add("js-reveal");
+  revealTargets.forEach((element) => element.classList.add("reveal"));
+
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+  );
+
+  revealTargets.forEach((element) => revealObserver.observe(element));
 }
 
 export {};

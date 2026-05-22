@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      document.documentElement.classList.add("js-reveal");
+    </script>
     <meta
       name="description"
       content="ScanAir provides drone services, 3D site documentation, software tools, and local aerial capture for North Bay, Ontario."
@@ -16,6 +19,12 @@
     <meta property="og:image" content="/assets/hero-property-scan.png" />
     <title>ScanAir | Drone Scanning Tools & Services</title>
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
@@ -26,9 +35,10 @@
       </a>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#services">Services</a>
+        <a href="#process">Process</a>
         <a href="#solutions">Use Cases</a>
         <a href="#samples">Samples</a>
-        <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
+        <a href="https://path.scanair.ca/">DJI Path Creator</a>
       </nav>
       <div class="nav-actions">
         <a class="button button-primary nav-cta" href="/contact.html">Contact Us</a>
@@ -49,9 +59,10 @@
       </div>
       <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
         <a href="#services">Services</a>
+        <a href="#process">Process</a>
         <a href="#solutions">Use Cases</a>
         <a href="#samples">Samples</a>
-        <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
+        <a href="https://path.scanair.ca/">DJI Path Creator</a>
         <a class="button button-primary" href="/contact.html">Contact Us</a>
       </nav>
     </header>
@@ -59,242 +70,527 @@
     <main>
       <section class="hero" aria-labelledby="hero-title">
         <div
-          class="hero-background hero-splat-stage"
+          class="hero-stage hero-splat-stage"
           data-splat-showcase
           data-manifest-url="/splats/splats.json"
           data-r2-base-url=""
           data-rotation-ms="14000"
           data-orbit-speed="0.06"
           data-render-fps="60"
-          data-background-color="#090d11"
+          data-background-color="#0d0f13"
           aria-hidden="true"
         >
-          <img class="hero-splat-fallback" src="/assets/hero-property-scan.png" alt="" />
           <canvas class="hero-splat-canvas" data-splat-canvas></canvas>
-          <div class="hero-splat-status" data-splat-status>
-            <span data-splat-status-label>Loading 3DGS capture</span>
+          <div class="hero-status" data-splat-status>
+            <span class="hero-status-dot" aria-hidden="true"></span>
+            <span class="hero-status-label" data-splat-status-label>Loading 3DGS capture</span>
             <strong data-splat-progress>0%</strong>
           </div>
         </div>
         <div class="hero-shade" aria-hidden="true"></div>
-        <div class="hero-content">
-          <p class="eyebrow">Drone services and software</p>
-          <h1 id="hero-title"><span>North Bay</span> Drone Services</h1>
-          <div class="hero-rule" aria-hidden="true"></div>
-          <p class="hero-copy">
-            ScanAir serves North Bay, Ontario with aerial capture, 3D site context, and practical
-            software tools that help properties, projects, and places move from field capture to
-            clearer decisions. Our software solutions are available globally.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary button-large" href="/contact.html">
-              Contact Us
+        <div class="hero-inner">
+          <div class="hero-content">
+            <p class="eyebrow">Drone services &amp; spatial software</p>
+            <h1 id="hero-title">
+              <span class="hero-title-accent">North Bay</span>
+              Drone Services
+            </h1>
+            <p class="hero-copy">
+              ScanAir serves North Bay, Ontario with aerial capture, 3D site context, and practical
+              software tools that turn field capture into clearer decisions. Our software solutions
+              are available globally.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary button-large" href="/contact.html">
+                Contact Us
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+              <a class="button button-ghost button-large" href="#tools">DJI Drone Path Creator</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero-meta" aria-hidden="true">
+          <span>46.31&deg;N</span>
+          <span class="hero-meta-line"></span>
+          <span>North Bay, ON</span>
+        </div>
+      </section>
+
+      <section class="band band-paper services" id="services" aria-labelledby="services-title">
+        <div class="shell">
+          <div class="section-rule">
+            <span class="section-rule-id">&sect; 01</span>
+            <span class="section-rule-line"></span>
+            <span class="section-rule-name">Services</span>
+          </div>
+          <div class="section-head">
+            <h2 id="services-title">Three ways we document a site.</h2>
+            <p class="section-lead">
+              From a single capture flight to a full 3D record &mdash; choose the level of detail a
+              project actually needs.
+            </p>
+          </div>
+          <div class="services-flow">
+            <article class="flow-row">
+              <div class="flow-marker">
+                <span class="flow-node" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 11V6a2 2 0 0 1 2-2h5" />
+                    <path d="M21 4h5a2 2 0 0 1 2 2v5" />
+                    <path d="M28 21v5a2 2 0 0 1-2 2h-5" />
+                    <path d="M11 28H6a2 2 0 0 1-2-2v-5" />
+                    <circle cx="16" cy="16" r="4.2" />
+                    <path d="M16 9.2V7.5M16 24.5v-1.7M9.2 16H7.5M24.5 16h-1.7" />
+                  </svg>
+                </span>
+              </div>
+              <div class="flow-body" data-step="01">
+                <span class="flow-step">Step 01</span>
+                <h3 class="index-row-title">Site Capture</h3>
+                <p class="index-row-text">High-resolution drone imagery for roofs, yards, driveways, elevations, and hard-to-reach exterior details.</p>
+              </div>
+            </article>
+            <article class="flow-row">
+              <div class="flow-marker">
+                <span class="flow-node" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 4 28 10.5v11L16 28 4 21.5v-11L16 4Z" />
+                    <path d="M4 10.5 16 17l12-6.5" />
+                    <path d="M16 17v11" />
+                  </svg>
+                </span>
+              </div>
+              <div class="flow-body" data-step="02">
+                <span class="flow-step">Step 02</span>
+                <h3 class="index-row-title">3D Documentation</h3>
+                <p class="index-row-text">Property reconstructions and visual records that make scope discussions easier to review and share.</p>
+              </div>
+            </article>
+            <article class="flow-row">
+              <div class="flow-marker">
+                <span class="flow-node" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 4 28 11 16 18 4 11 16 4Z" />
+                    <path d="M4 17 16 24 28 17" />
+                    <path d="M4 23 16 30 28 23" />
+                  </svg>
+                </span>
+              </div>
+              <div class="flow-body" data-step="03">
+                <span class="flow-step">Step 03</span>
+                <h3 class="index-row-title">Project Previews</h3>
+                <p class="index-row-text">Marked-up visuals and practical planning views for exterior renovations, landscaping, and site improvements.</p>
+              </div>
+            </article>
+          </div>
+          <div class="cta-strip">
+            <div class="cta-strip-text">
+              <strong>Have a site that needs a clearer view?</strong>
+              <p>Tell us what you need captured, documented, or turned into a planning visual.</p>
+            </div>
+            <a class="button button-primary" href="/contact.html">
+              Request a Project
               <span aria-hidden="true">&rarr;</span>
             </a>
-            <a class="button button-secondary button-large" href="#tools">DJI Drone Path Creator</a>
           </div>
         </div>
       </section>
 
-      <section class="feature-band" id="services" aria-label="ScanAir local services">
-        <article class="feature-item">
-          <span class="feature-icon target-icon" aria-hidden="true"></span>
-          <div>
-            <h2>Site Capture</h2>
-            <p>High-resolution drone imagery for roofs, yards, driveways, elevations, and hard-to-reach exterior details.</p>
+      <section class="band band-paper2 process" id="process" aria-labelledby="process-title">
+        <div class="shell">
+          <div class="section-rule">
+            <span class="section-rule-id">&sect; 02</span>
+            <span class="section-rule-line"></span>
+            <span class="section-rule-name">Process</span>
           </div>
-        </article>
-        <article class="feature-item">
-          <span class="feature-icon cube-icon" aria-hidden="true"></span>
-          <div>
-            <h2>3D Documentation</h2>
-            <p>Property reconstructions and visual records that make scope discussions easier to review and share.</p>
+          <div class="section-head">
+            <h2 id="process-title">From field capture to a clearer decision.</h2>
+            <p class="section-lead">
+              Three steps turn a site into something you can actually use &mdash; review it, share
+              it, and plan from it.
+            </p>
           </div>
-        </article>
-        <article class="feature-item">
-          <span class="feature-icon pencil-icon" aria-hidden="true"></span>
-          <div>
-            <h2>Project Previews</h2>
-            <p>Marked-up visuals and practical planning views for exterior renovations, landscaping, and site improvements.</p>
-          </div>
-        </article>
-        <div class="feature-cta">
-          <div>
-            <strong>Have a site that needs a clearer view?</strong>
-            <p>Tell us what you need captured, documented, or turned into a planning visual.</p>
-          </div>
-          <a class="button button-primary" href="/contact.html">Request a Project</a>
-        </div>
-      </section>
-
-      <section class="preview-section" id="demo">
-        <div class="preview-grid" aria-label="ScanAir planning preview examples">
-          <article class="preview-card before-card">
-            <h2 class="preview-card-title">Our Services</h2>
-            <span>General Services</span>
-            <strong>Aerial Capture</strong>
-          </article>
-          <article class="preview-card plan-card">
-            <span>3D Capture</span>
-            <strong>Gaussian Splatting / Photogrammetry</strong>
-          </article>
-          <article class="preview-card redline-card">
-            <span>Worksite Capture</span>
-            <strong>3D flight path</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="samples-section" id="samples" aria-labelledby="samples-title">
-        <div class="samples-header">
-          <div>
-            <p class="eyebrow">Samples</p>
-            <h2 id="samples-title">Embedded 3D project samples.</h2>
-          </div>
-          <p>
-            SuperSplat scenes give customers an interactive look at scan quality, site context,
-            and the kind of spatial record a project can keep after capture.
-          </p>
-        </div>
-        <div class="samples-grid" aria-label="ScanAir SuperSplat samples">
-          <article class="sample-card sample-card-large exterior-sample">
-            <div
-              class="supersplat-embed"
-              data-supersplat-embed
-              data-supersplat-src=""
-              data-supersplat-title="Exterior site SuperSplat sample"
-              aria-label="Exterior site SuperSplat sample"
-            >
-              <div class="sample-placeholder">
-                <span>Exterior Site</span>
-                <strong>3DGS sample</strong>
+          <div class="timeline-wrap">
+            <div class="timeline-aside timeline-aside-top" aria-hidden="true">
+              <svg class="timeline-flow-arrow" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M32 32 88 88" />
+                <path d="M88 50v38H50" />
+              </svg>
+            </div>
+            <div class="timeline-aside timeline-aside-bottom" aria-hidden="true">
+              <svg class="timeline-flow-arrow" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M32 32 88 88" />
+                <path d="M88 50v38H50" />
+              </svg>
+            </div>
+          <ol class="timeline">
+            <li class="timeline-step">
+              <span class="timeline-num" aria-hidden="true">01</span>
+              <div class="timeline-detail">
+                <div class="timeline-head">
+                  <h3>Capture</h3>
+                  <span class="timeline-tag">On-site</span>
+                </div>
+                <p>We fly the site and record high-resolution aerial imagery across roofs, elevations, and ground-level detail.</p>
               </div>
-            </div>
-            <div class="sample-caption">
-              <span>Project sample</span>
-              <strong>Exterior documentation</strong>
-            </div>
-          </article>
-          <article class="sample-card property-sample">
-            <div
-              class="supersplat-embed"
-              data-supersplat-embed
-              data-supersplat-src=""
-              data-supersplat-title="Property context SuperSplat sample"
-              aria-label="Property context SuperSplat sample"
-            >
-              <div class="sample-placeholder">
-                <span>Property Context</span>
-                <strong>3DGS sample</strong>
+            </li>
+            <li class="timeline-step">
+              <span class="timeline-num" aria-hidden="true">02</span>
+              <div class="timeline-detail">
+                <div class="timeline-head">
+                  <h3>Reconstruct</h3>
+                  <span class="timeline-tag">In studio</span>
+                </div>
+                <p>Imagery becomes 3D &mdash; Gaussian splatting, photogrammetry, and measured site context you can move through.</p>
               </div>
-            </div>
-            <div class="sample-caption">
-              <span>Project sample</span>
-              <strong>Real estate context</strong>
-            </div>
-          </article>
-          <article class="sample-card public-sample">
-            <div
-              class="supersplat-embed"
-              data-supersplat-embed
-              data-supersplat-src=""
-              data-supersplat-title="Public space SuperSplat sample"
-              aria-label="Public space SuperSplat sample"
-            >
-              <div class="sample-placeholder">
-                <span>Public Space</span>
-                <strong>3DGS sample</strong>
+            </li>
+            <li class="timeline-step">
+              <span class="timeline-num" aria-hidden="true">03</span>
+              <div class="timeline-detail">
+                <div class="timeline-head">
+                  <h3>Deliver</h3>
+                  <span class="timeline-tag">Handover</span>
+                </div>
+                <p>You get visuals, planning views, and a spatial record of the site you can revisit long after the flight.</p>
               </div>
-            </div>
-            <div class="sample-caption">
-              <span>Project sample</span>
-              <strong>Tourism and public spaces</strong>
-            </div>
-          </article>
+            </li>
+          </ol>
+          </div>
         </div>
       </section>
 
-      <section class="solutions-section" id="solutions">
-        <div class="solution-copy">
-          <p class="eyebrow">Use cases</p>
-          <h2>Drone capture and 3D context for places that need a clearer view.</h2>
-          <p>
-            ScanAir supports teams that need practical aerial documentation, 3D site context,
-            or visual planning material for spaces that are difficult to explain from the ground.
-          </p>
-          <a class="button button-outline solution-cta" href="/contact.html">Discuss a Use Case</a>
-        </div>
-        <div class="solution-strip" aria-label="Use case categories">
-          <article class="use-case-tile industrial-tile">
-            <span>01</span>
-            <strong>Industrial</strong>
-            <p>Facility context, site records, and inspection views for complex exterior spaces.</p>
-          </article>
-          <article class="use-case-tile tourism-tile">
-            <span>02</span>
-            <strong>Tourism</strong>
-            <p>Destination visuals and immersive 3D context for places people want to explore.</p>
-          </article>
-          <article class="use-case-tile real-estate-tile">
-            <span>03</span>
-            <strong>Real Estate</strong>
-            <p>Property perspectives that make listings and site conversations easier to understand.</p>
-          </article>
-          <article class="use-case-tile construction-tile">
-            <span>04</span>
-            <strong>Construction</strong>
-            <p>Progress records, planning views, and clearer owner-facing visual references.</p>
-          </article>
-          <article class="use-case-tile public-tile">
-            <span>05</span>
-            <strong>Public Spaces</strong>
-            <p>Spatial documentation for parks, campuses, streetscapes, and shared outdoor areas.</p>
-          </article>
-          <article class="use-case-tile event-tile">
-            <span>06</span>
-            <strong>Event Sites</strong>
-            <p>Coverage maps and aerial context for temporary layouts and site logistics.</p>
-          </article>
-          <article class="use-case-tile more-tile">
-            <span>07</span>
-            <strong>And More</strong>
-            <p>Custom capture workflows for unique spaces and unusual site constraints.</p>
-          </article>
+      <section class="band band-dark samples" id="samples" aria-labelledby="samples-title">
+        <div class="shell">
+          <div class="section-rule">
+            <span class="section-rule-id">&sect; 03</span>
+            <span class="section-rule-line"></span>
+            <span class="section-rule-name">Samples</span>
+          </div>
+          <div class="section-head">
+            <h2 id="samples-title">Interactive 3D project samples.</h2>
+            <p class="section-lead">
+              SuperSplat scenes give customers an interactive look at scan quality, site context,
+              and the kind of spatial record a project can keep after capture.
+            </p>
+          </div>
+          <div
+            class="samples-carousel"
+            data-carousel
+            role="group"
+            aria-roledescription="carousel"
+            aria-label="Interactive 3D project samples"
+          >
+            <div class="carousel-track" data-carousel-track>
+              <figure class="exhibit" data-carousel-slide aria-roledescription="slide">
+                <div
+                  class="viewer supersplat-embed"
+                  data-supersplat-embed
+                  data-supersplat-src=""
+                  data-supersplat-title="Exterior site SuperSplat sample"
+                  aria-label="Exterior site SuperSplat sample"
+                >
+                  <div class="sample-placeholder">
+                    <span class="sample-pill">Interactive 3D</span>
+                    <span class="sample-mark" aria-hidden="true">
+                      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4 28 10.5v11L16 28 4 21.5v-11L16 4Z" />
+                        <path d="M4 10.5 16 17l12-6.5" />
+                        <path d="M16 17v11" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <figcaption class="exhibit-caption">
+                  <span class="exhibit-index" aria-hidden="true">01</span>
+                  <span class="exhibit-meta">
+                    <strong>Exterior documentation</strong>
+                    <span class="exhibit-tag">3DGS scene</span>
+                  </span>
+                </figcaption>
+              </figure>
+              <figure class="exhibit" data-carousel-slide aria-roledescription="slide">
+                <div
+                  class="viewer supersplat-embed"
+                  data-supersplat-embed
+                  data-supersplat-src=""
+                  data-supersplat-title="Property context SuperSplat sample"
+                  aria-label="Property context SuperSplat sample"
+                >
+                  <div class="sample-placeholder">
+                    <span class="sample-pill">Interactive 3D</span>
+                    <span class="sample-mark" aria-hidden="true">
+                      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4 28 10.5v11L16 28 4 21.5v-11L16 4Z" />
+                        <path d="M4 10.5 16 17l12-6.5" />
+                        <path d="M16 17v11" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <figcaption class="exhibit-caption">
+                  <span class="exhibit-index" aria-hidden="true">02</span>
+                  <span class="exhibit-meta">
+                    <strong>Real estate context</strong>
+                    <span class="exhibit-tag">3DGS scene</span>
+                  </span>
+                </figcaption>
+              </figure>
+              <figure class="exhibit" data-carousel-slide aria-roledescription="slide">
+                <div
+                  class="viewer supersplat-embed"
+                  data-supersplat-embed
+                  data-supersplat-src=""
+                  data-supersplat-title="Public space SuperSplat sample"
+                  aria-label="Public space SuperSplat sample"
+                >
+                  <div class="sample-placeholder">
+                    <span class="sample-pill">Interactive 3D</span>
+                    <span class="sample-mark" aria-hidden="true">
+                      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4 28 10.5v11L16 28 4 21.5v-11L16 4Z" />
+                        <path d="M4 10.5 16 17l12-6.5" />
+                        <path d="M16 17v11" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <figcaption class="exhibit-caption">
+                  <span class="exhibit-index" aria-hidden="true">03</span>
+                  <span class="exhibit-meta">
+                    <strong>Tourism &amp; public spaces</strong>
+                    <span class="exhibit-tag">3DGS scene</span>
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="carousel-controls">
+              <button
+                class="carousel-arrow"
+                type="button"
+                data-carousel-prev
+                aria-label="Previous sample"
+              >
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6 10 16l10 10" />
+                </svg>
+              </button>
+              <div class="carousel-progress">
+                <span class="carousel-count" data-carousel-count>01</span>
+                <span class="carousel-bar" aria-hidden="true">
+                  <span class="carousel-bar-fill" data-carousel-fill></span>
+                </span>
+                <span class="carousel-total">03</span>
+              </div>
+              <button
+                class="carousel-arrow"
+                type="button"
+                data-carousel-next
+                aria-label="Next sample"
+              >
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 6l10 10-10 10" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="tools-section" id="tools" aria-labelledby="tools-title">
-        <article class="tool-card">
-          <div>
-            <span class="tool-label">Available now</span>
+      <section class="band band-paper use-cases" id="solutions" aria-labelledby="usecases-title">
+        <div class="usecases-bg" aria-hidden="true">
+          <div class="usecases-grid"><div class="usecases-grid-lines"></div></div>
+          <svg class="usecases-route-svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
+            <path
+              class="usecases-route-line"
+              id="usecases-route"
+              d="M49 -8 C47 20 51 42 49 62 C47 82 50 100 49 112"
+            />
+          </svg>
+          <span class="usecases-waypoint"><span class="usecases-waypoint-pulse"></span></span>
+        </div>
+        <div class="shell">
+          <div class="section-rule">
+            <span class="section-rule-id">&sect; 04</span>
+            <span class="section-rule-line"></span>
+            <span class="section-rule-name">Use cases</span>
+          </div>
+          <div class="usecases-head">
+            <div class="section-head">
+              <h2 id="usecases-title">Drone capture and 3D context for places that need a clearer view.</h2>
+            </div>
+            <div class="usecases-aside">
+              <p>
+                ScanAir supports teams that need practical aerial documentation, 3D site context,
+                or visual planning material for spaces that are difficult to explain from the
+                ground.
+              </p>
+              <a class="button button-dark" href="/contact.html">
+                Discuss a Use Case
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <ul class="index-list usecase-index">
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 28V14l8 5v-5l8 5V8h8v20Z" />
+                    <path d="M11 28v-5M19 28v-5M26 28v-5" />
+                  </svg>
+                </span>
+                <span class="index-num">01</span>
+              </div>
+              <h3 class="index-row-title">Industrial</h3>
+              <p class="index-row-text">Facility context, site records, and inspection views for complex exterior spaces.</p>
+            </li>
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 28s9-7.8 9-14a9 9 0 1 0-18 0c0 6.2 9 14 9 14Z" />
+                    <circle cx="16" cy="14" r="3.6" />
+                  </svg>
+                </span>
+                <span class="index-num">02</span>
+              </div>
+              <h3 class="index-row-title">Tourism</h3>
+              <p class="index-row-text">Destination visuals and immersive 3D context for places people want to explore.</p>
+            </li>
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 15 16 5l11 10" />
+                    <path d="M8 13v14h16V13" />
+                    <path d="M14 27v-7h4v7" />
+                  </svg>
+                </span>
+                <span class="index-num">03</span>
+              </div>
+              <h3 class="index-row-title">Real Estate</h3>
+              <p class="index-row-text">Property perspectives that make listings and site conversations easier to understand.</p>
+            </li>
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 28h20" />
+                    <path d="M11 28V6h13" />
+                    <path d="M11 6 24 13" />
+                    <path d="M17 10.5v6.5" />
+                    <rect x="13.5" y="17" width="7" height="5.5" />
+                  </svg>
+                </span>
+                <span class="index-num">04</span>
+              </div>
+              <h3 class="index-row-title">Construction</h3>
+              <p class="index-row-text">Progress records, planning views, and clearer owner-facing visual references.</p>
+            </li>
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="16" cy="12" r="8" />
+                    <path d="M16 20v8" />
+                    <path d="M11.5 28h9" />
+                  </svg>
+                </span>
+                <span class="index-num">05</span>
+              </div>
+              <h3 class="index-row-title">Public Spaces</h3>
+              <p class="index-row-text">Spatial documentation for parks, campuses, streetscapes, and shared outdoor areas.</p>
+            </li>
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 26 16 6l12 20Z" />
+                    <path d="M16 6v20" />
+                    <path d="M16 26 9.5 16.5M16 26l6.5-10.5" />
+                  </svg>
+                </span>
+                <span class="index-num">06</span>
+              </div>
+              <h3 class="index-row-title">Event Sites</h3>
+              <p class="index-row-text">Coverage maps and aerial context for temporary layouts and site logistics.</p>
+            </li>
+            <li class="index-row">
+              <div class="index-row-id">
+                <span class="index-icon" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="16" cy="16" r="12" />
+                    <path d="M16 10v12M10 16h12" />
+                  </svg>
+                </span>
+                <span class="index-num">07</span>
+              </div>
+              <h3 class="index-row-title">And more</h3>
+              <p class="index-row-text">Custom capture workflows for unique spaces and unusual site constraints.</p>
+            </li>
+          </ul>
+          <div class="usecases-scan" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="band band-dark tools" id="tools" aria-labelledby="tools-title">
+        <div class="shell">
+          <div class="tools-content">
+            <div class="section-rule">
+              <span class="section-rule-id">&sect; 05</span>
+              <span class="section-rule-line"></span>
+              <span class="section-rule-name">Available now</span>
+            </div>
             <h2 id="tools-title">DJI Drone Path Creator</h2>
             <p>
               Build consumer DJI drone paths for DJI Fly with a 3D drone path editor tailored for
-              3D scanning, photogrammetry, coverage planning, and cleaner scan routes before takeoff.
+              3D scanning, photogrammetry, coverage planning, and cleaner scan routes before
+              takeoff.
             </p>
+            <div class="tool-actions">
+              <a class="button button-primary button-large" href="https://path.scanair.ca">
+                Open Tool
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+              <a class="button button-ghost button-large" href="/contact.html">Contact Us</a>
+            </div>
           </div>
-          <div class="tool-actions">
-            <a class="button button-primary button-large" href="https://path.scanair.ca">
-              Open Tool
-              <span aria-hidden="true">&rarr;</span>
-            </a>
-            <a class="button button-secondary button-large" href="/contact.html">Contact Us</a>
-          </div>
-        </article>
+        </div>
       </section>
-
     </main>
 
     <footer class="site-footer" id="contact">
-      <a class="footer-brand" href="/" aria-label="ScanAir home">
-        <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
-        <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
-      </a>
-      <p>Local drone scanning, exterior documentation, and planning visuals.</p>
-      <a href="/contact.html">Contact Us</a>
+      <div class="footer-top">
+        <div class="footer-brand-block">
+          <a class="footer-brand" href="/" aria-label="ScanAir home">
+            <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
+            <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
+          </a>
+          <p>Local drone scanning, exterior documentation, and planning visuals for North Bay, Ontario.</p>
+        </div>
+        <nav class="footer-col" aria-label="Footer navigation">
+          <p class="footer-heading">Navigate</p>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#solutions">Use Cases</a>
+          <a href="#samples">Samples</a>
+        </nav>
+        <div class="footer-col">
+          <p class="footer-heading">Get in touch</p>
+          <a href="/contact.html">Contact ScanAir</a>
+          <a href="https://path.scanair.ca">DJI Path Creator</a>
+          <span class="footer-note">North Bay, Ontario</span>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>&copy; 2026 ScanAir</span>
+        <span>Drone services &amp; spatial software</span>
+      </div>
     </footer>
     <script type="module" src="/src/nav.ts"></script>
     <script type="module" src="/src/samples.ts"></script>
+    <script type="module" src="/src/carousel.ts"></script>
+    <script type="module" src="/src/usecases.ts"></script>
     <script type="module" src="/src/hero-splats.ts"></script>
   </body>
 </html>

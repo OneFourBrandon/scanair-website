@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      document.documentElement.classList.add("js-reveal");
+    </script>
     <meta
       name="description"
       content="Contact ScanAir for drone capture, 3D site documentation, project visuals, and drone software support in North Bay, Ontario."
@@ -16,6 +19,12 @@
     <meta property="og:image" content="/assets/hero-property-scan.png" />
     <title>Contact ScanAir | Drone Services in North Bay</title>
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body class="contact-page">
@@ -26,9 +35,10 @@
       </a>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="/#services">Services</a>
+        <a href="/#process">Process</a>
         <a href="/#solutions">Use Cases</a>
         <a href="/#samples">Samples</a>
-        <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
+        <a href="https://path.scanair.ca/">DJI Path Creator</a>
       </nav>
       <div class="nav-actions">
         <a class="button button-primary nav-cta" href="/contact.html">Contact Us</a>
@@ -49,117 +59,127 @@
       </div>
       <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
         <a href="/#services">Services</a>
+        <a href="/#process">Process</a>
         <a href="/#solutions">Use Cases</a>
         <a href="/#samples">Samples</a>
-        <a href="https://path.scanair.ca/">DJI Drone Path Creator</a>
+        <a href="https://path.scanair.ca/">DJI Path Creator</a>
         <a class="button button-primary" href="/contact.html">Contact Us</a>
       </nav>
     </header>
 
     <main class="contact-main">
-      <section class="contact-hero" aria-labelledby="contact-title">
-        <div class="contact-hero-copy">
-          <p class="eyebrow">Contact ScanAir</p>
-          <h1 id="contact-title">Tell us what you need to capture.</h1>
-          <p>
-            Serving North Bay, Ontario with drone capture, 3D site documentation,
-            project visuals, and practical drone software workflows.
-          </p>
-        </div>
-      </section>
-
-      <section class="contact-section" aria-label="Contact ScanAir">
-        <aside class="contact-details-panel">
-          <p class="eyebrow">Reach us</p>
-          <h2>Start with the site, timeline, and outcome.</h2>
-          <p>
-            Send the property, project type, access notes, and what you need the
-            drone capture or 3D context to help decide.
-          </p>
-          <div class="contact-methods">
-            <div class="contact-method">
-              <span>Email</span>
-              <button
-                class="contact-reveal"
-                type="button"
-                data-reveal-contact="email"
-                aria-controls="contact-email-value"
-                aria-expanded="false"
-              >
-                Show email address
-              </button>
-              <strong id="contact-email-value" class="contact-method-value" data-contact-value="email" hidden></strong>
+      <div class="contact-layout">
+        <aside class="contact-aside" aria-labelledby="contact-title">
+          <div class="contact-aside-inner">
+            <div class="section-rule">
+              <span class="section-rule-id">&sect; 01</span>
+              <span class="section-rule-line"></span>
+              <span class="section-rule-name">Contact</span>
             </div>
-            <div class="contact-method">
-              <span>Phone</span>
-              <button
-                class="contact-reveal"
-                type="button"
-                data-reveal-contact="phone"
-                aria-controls="contact-phone-value"
-                aria-expanded="false"
-              >
-                Show phone number
-              </button>
-              <strong id="contact-phone-value" class="contact-method-value" data-contact-value="phone" hidden></strong>
+            <h1 id="contact-title">Tell us what you need to capture.</h1>
+            <p class="contact-intro">
+              Serving North Bay, Ontario with drone capture, 3D site documentation, project
+              visuals, and practical drone software workflows. Start with the site, timeline,
+              and the outcome you need.
+            </p>
+            <div class="contact-methods">
+              <div class="contact-method">
+                <span>Email</span>
+                <strong id="contact-email-value" class="contact-method-value" data-contact-value="email">&hellip;</strong>
+              </div>
+              <div class="contact-method">
+                <span>Service area</span>
+                <strong>North Bay, Ontario</strong>
+              </div>
             </div>
-            <div class="contact-method">
-              <span>Service area</span>
-              <strong>North Bay, Ontario</strong>
-            </div>
+            <p class="contact-coords" aria-hidden="true">
+              <span>46.31&deg;N</span>
+              <span class="contact-coords-line"></span>
+              <span>North Bay, ON</span>
+            </p>
           </div>
         </aside>
 
-        <form class="contact-form" data-contact-form>
-          <div class="form-grid">
-            <label class="form-field">
-              <span>Name</span>
-              <input type="text" name="name" autocomplete="name" required />
-            </label>
-            <label class="form-field">
-              <span>Email</span>
-              <input type="email" name="email" autocomplete="email" required />
-            </label>
-            <label class="form-field">
-              <span>Phone</span>
-              <input type="tel" name="phone" autocomplete="tel" />
-            </label>
-            <label class="form-field">
-              <span>Project Type</span>
-              <select name="project_type" required>
-                <option value="">Select one</option>
-                <option value="Aerial capture">Aerial capture</option>
-                <option value="3D site documentation">3D site documentation</option>
-                <option value="Photogrammetry or Gaussian splatting">Photogrammetry or Gaussian splatting</option>
-                <option value="DJI drone path planning">DJI drone path planning</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-            <label class="form-field full">
-              <span>Message</span>
-              <textarea
-                name="message"
-                rows="7"
-                placeholder="Tell us about the site, timeline, and what you need from the capture."
-                required
-              ></textarea>
-            </label>
+        <div class="contact-form-side">
+          <div class="contact-form-inner">
+            <form class="contact-form" data-contact-form>
+            <div class="section-rule">
+              <span class="section-rule-id">&sect; 02</span>
+              <span class="section-rule-line"></span>
+              <span class="section-rule-name">Project inquiry</span>
+            </div>
+            <h2 class="contact-form-title">Send project details</h2>
+            <div class="form-grid">
+              <label class="form-field">
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required />
+              </label>
+              <label class="form-field">
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+              <label class="form-field">
+                <span>Phone</span>
+                <input type="tel" name="phone" autocomplete="tel" />
+              </label>
+              <label class="form-field">
+                <span>Project Type</span>
+                <select name="project_type" required>
+                  <option value="">Select one</option>
+                  <option value="Aerial capture">Aerial capture</option>
+                  <option value="3D site documentation">3D site documentation</option>
+                  <option value="Photogrammetry or Gaussian splatting">Photogrammetry or Gaussian splatting</option>
+                  <option value="DJI drone path planning">DJI drone path planning</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label class="form-field full">
+                <span>Message</span>
+                <textarea
+                  name="message"
+                  rows="7"
+                  placeholder="Tell us about the site, timeline, and what you need from the capture."
+                  required
+                ></textarea>
+              </label>
+            </div>
+            <div class="contact-form-footer">
+              <p>We will reply by email after reviewing the project details.</p>
+              <button class="button button-primary" type="submit">Send Message</button>
+            </div>
+            </form>
           </div>
-          <div class="contact-form-footer">
-            <p>We will reply by email after reviewing the project details.</p>
-            <button class="button button-primary" type="submit">Send Message</button>
-          </div>
-        </form>
-      </section>
+        </div>
+      </div>
     </main>
 
     <footer class="site-footer">
-      <a class="footer-brand" href="/" aria-label="ScanAir home">
-        <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
-        <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
-      </a>
-      <p>Local drone scanning, exterior documentation, and planning visuals.</p>
-      <a href="https://path.scanair.ca">DJI Drone Path Creator</a>
+      <div class="footer-top">
+        <div class="footer-brand-block">
+          <a class="footer-brand" href="/" aria-label="ScanAir home">
+            <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
+            <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
+          </a>
+          <p>Local drone scanning, exterior documentation, and planning visuals for North Bay, Ontario.</p>
+        </div>
+        <nav class="footer-col" aria-label="Footer navigation">
+          <p class="footer-heading">Navigate</p>
+          <a href="/#services">Services</a>
+          <a href="/#process">Process</a>
+          <a href="/#solutions">Use Cases</a>
+          <a href="/#samples">Samples</a>
+        </nav>
+        <div class="footer-col">
+          <p class="footer-heading">Get in touch</p>
+          <a href="/contact.html">Contact ScanAir</a>
+          <a href="https://path.scanair.ca">DJI Path Creator</a>
+          <span class="footer-note">North Bay, Ontario</span>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>&copy; 2026 ScanAir</span>
+        <span>Drone services &amp; spatial software</span>
+      </div>
     </footer>
     <script type="module" src="/src/nav.ts"></script>
     <script type="module" src="/src/contact.ts"></script>
