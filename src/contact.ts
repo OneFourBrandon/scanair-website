@@ -8,8 +8,7 @@ const email = decodeContact([
 
 const emailHref = `mailto:${email}`;
 
-// Placeholder phone number — replace the encoded array once a real number is set.
-const phone = decodeContact([43, 52, 53, 54, 48, 40, 57, 51, 52, 50, 54, 55, 56, 57]);
+const phone = decodeContact([58, 52, 58, 51, 63, 60, 62, 48, 58, 59, 54, 58]);
 
 const phoneHref = `tel:${phone.replace(/\D/g, "")}`;
 

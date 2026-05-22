@@ -2381,6 +2381,32 @@ svg {
   color: var(--white);
 }
 
+/* Keep small mono labels and light links readable on high-DPI displays. */
+.nav-links a,
+.mobile-menu a:not(.button),
+.footer-col a,
+.legal-footer-links a {
+  font-size: clamp(0.96rem, 0.9rem + 0.18vw, 1.02rem);
+  -webkit-font-smoothing: antialiased;
+}
+
+.eyebrow,
+.hero-status,
+.hero-meta,
+.section-rule-name,
+.footer-heading,
+.footer-base,
+.contact-method span,
+.email-reveal,
+.contact-coords,
+.form-field span,
+.legal-updated,
+.legal-contact-grid span,
+.legal-contact-reveal {
+  font-size: clamp(0.8rem, 0.74rem + 0.16vw, 0.88rem);
+  -webkit-font-smoothing: antialiased;
+}
+
 @media (max-width: 560px) {
   .legal-card h2 {
     font-size: 1.16rem;
