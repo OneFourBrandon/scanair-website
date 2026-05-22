@@ -8,6 +8,11 @@ const email = decodeContact([
 
 const emailHref = `mailto:${email}`;
 
+// Placeholder phone number — replace the encoded array once a real number is set.
+const phone = decodeContact([43, 52, 53, 54, 48, 40, 57, 51, 52, 50, 54, 55, 56, 57]);
+
+const phoneHref = `tel:${phone.replace(/\D/g, "")}`;
+
 const emailTarget = document.querySelector<HTMLElement>('[data-contact-value="email"]');
 const emailRevealButton = document.querySelector<HTMLButtonElement>("[data-email-reveal]");
 
@@ -25,6 +30,27 @@ const revealEmail = () => {
 };
 
 emailRevealButton?.addEventListener("click", revealEmail);
+
+document.querySelectorAll<HTMLButtonElement>("[data-reveal-contact]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const targetId = button.getAttribute("aria-controls");
+    const target = targetId ? document.getElementById(targetId) : null;
+    if (!target) {
+      return;
+    }
+
+    const isPhone = button.dataset.revealContact === "phone";
+    const link = document.createElement("a");
+    link.href = isPhone ? phoneHref : emailHref;
+    link.textContent = isPhone ? phone : email;
+    link.setAttribute("aria-label", `${isPhone ? "Phone number" : "Email address"}: ${link.textContent}`);
+
+    target.replaceChildren(link);
+    target.hidden = false;
+    button.hidden = true;
+    button.setAttribute("aria-expanded", "true");
+  });
+});
 
 const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
 
