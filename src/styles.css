@@ -833,43 +833,6 @@ svg {
   place-items: center;
 }
 
-/* vertical spine connecting the nodes */
-.flow-marker::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  transform: translateX(-50%);
-  background: var(--line-strong);
-}
-
-.flow-row:first-child .flow-marker::before {
-  top: 50%;
-}
-
-.flow-row:last-child .flow-marker::before {
-  bottom: 50%;
-}
-
-/* horizontal tick reaching from the node into the content */
-.flow-marker::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: calc(50% + 16px);
-  right: calc(-1 * clamp(8px, 2vw, 28px));
-  height: 2px;
-  transform: translateY(-50%);
-  background: var(--line-strong);
-  transition: background-color 260ms ease;
-}
-
-.flow-row:hover .flow-marker::after {
-  background: var(--red);
-}
-
 .flow-node {
   position: relative;
   z-index: 2;
@@ -1034,11 +997,6 @@ svg {
   .flow-node {
     width: 46px;
     height: 46px;
-  }
-
-  .flow-marker::after {
-    left: calc(50% + 12px);
-    right: calc(-1 * clamp(12px, 3vw, 16px));
   }
 
   .flow-body {
