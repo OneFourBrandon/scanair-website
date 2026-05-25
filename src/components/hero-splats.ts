@@ -129,8 +129,10 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
   let activeOrbitSpeed = config.orbitSpeed;
   let activeFrameInterval = 1000 / config.renderFps;
   let orbitStartTime = 0;
+  let activeCaptureUrl = "";
   let isDisposed = false;
   const loadedCaptureCache = new Map<string, Promise<LoadedCapture>>();
+  const captureOrbitElapsedCache = new Map<string, number>();
 
   const pointer = { x: 0, y: 0 };
   const pointerTarget = { x: 0, y: 0 };
@@ -149,6 +151,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     window.removeEventListener("pointerleave", handlePointerLeave);
     window.removeEventListener("pagehide", cleanup);
     loadedCaptureCache.clear();
+    captureOrbitElapsedCache.clear();
     renderer?.dispose();
   };
   window.__scanAirHeroSplatDispose = cleanup;
@@ -210,6 +213,57 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     pointerTarget.y = 0;
   };
 
+  const getActiveOrbitElapsedSeconds = () => {
+    if (!activeOrbitSpeed) {
+      return 0;
+    }
+
+    const fullOrbitSeconds = (Math.PI * 2) / Math.abs(activeOrbitSpeed);
+    const elapsedSeconds = performance.now() * 0.001 - orbitStartTime;
+    return normalizePositiveModulo(elapsedSeconds, fullOrbitSeconds);
+  };
+
+  const recordActiveCaptureOrbit = () => {
+    if (!activeCaptureUrl || !hasRenderableSplat || !activeOrbitSpeed) {
+      return;
+    }
+
+    captureOrbitElapsedCache.set(activeCaptureUrl, getActiveOrbitElapsedSeconds());
+  };
+
+  const getCachedOrbitElapsedSeconds = (capture: NormalizedCapture) => {
+    if (!capture.orbitSpeed) {
+      return 0;
+    }
+
+    const fullOrbitSeconds = (Math.PI * 2) / Math.abs(capture.orbitSpeed);
+    return normalizePositiveModulo(captureOrbitElapsedCache.get(capture.url) || 0, fullOrbitSeconds);
+  };
+
+  const updateCameraForTime = (time: number) => {
+    if (!camera) {
+      return;
+    }
+
+    const orbitAngle = (time - orbitStartTime) * activeOrbitSpeed;
+    const orbitOffset = rotateOffsetAroundYAxis(basePositionOffset, orbitAngle);
+
+    const dynamicRotation = new SPLAT.Vector3(
+      baseRotation.x - pointer.y * 0.117 + Math.cos(time * 0.5) * 0.01,
+      baseRotation.y - orbitAngle + pointer.x * 0.11 + Math.sin(time * 0.5) * 0.01,
+      baseRotation.z + pointer.x * 0.039,
+    );
+
+    camera.position = orbitCenter.add(orbitOffset).add(
+      new SPLAT.Vector3(
+        -pointer.x * 0.56,
+        -pointer.y * 0.16,
+        pointer.x * 0.1,
+      ),
+    );
+    camera.rotation = SPLAT.Quaternion.FromEuler(dynamicRotation);
+  };
+
   const animate = (timestamp: number) => {
     if (isDisposed) {
       return;
@@ -233,32 +287,12 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     pointer.x += (pointerTarget.x - pointer.x) * 0.045;
     pointer.y += (pointerTarget.y - pointer.y) * 0.045;
 
-    const orbitAngle = (time - orbitStartTime) * activeOrbitSpeed;
-    const orbitOffset = rotateOffsetAroundYAxis(basePositionOffset, orbitAngle);
-
-    const dynamicRotation = new SPLAT.Vector3(
-      baseRotation.x - pointer.y * 0.117 + Math.cos(time * 0.5) * 0.01,
-      baseRotation.y - orbitAngle + pointer.x * 0.11 + Math.sin(time * 0.5) * 0.01,
-      baseRotation.z + pointer.x * 0.039,
-    );
-
-    camera.position = orbitCenter.add(orbitOffset).add(
-      new SPLAT.Vector3(
-        -pointer.x * 0.56,
-        -pointer.y * 0.16,
-        pointer.x * 0.1,
-      ),
-    );
-    camera.rotation = SPLAT.Quaternion.FromEuler(dynamicRotation);
+    updateCameraForTime(time);
     camera.update();
     renderer.render(scene, camera);
   };
 
-  const scheduleNextCapture = (
-    captures: NormalizedCapture[],
-    activeCapture: NormalizedCapture,
-    rotationMs: number,
-  ) => {
+  const scheduleNextCapture = (captures: NormalizedCapture[], rotationMs: number) => {
     window.clearTimeout(cycleTimer);
 
     if (isDisposed || captures.length <= 1) {
@@ -268,7 +302,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     cycleTimer = window.setTimeout(() => {
       activeIndex = (activeIndex + 1) % captures.length;
       void loadCapture(captures, activeIndex, rotationMs);
-    }, getCaptureDisplayMs(activeCapture, rotationMs));
+    }, rotationMs);
   };
 
   const getLoadedCapture = (
@@ -351,6 +385,8 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
         if (isDisposed || loadId !== activeLoadId || !camera || !renderer || !scene) {
           return;
         }
+
+        recordActiveCaptureOrbit();
       }
 
       scene = loadedCapture.scene;
@@ -359,10 +395,12 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
       baseRotation = vectorFromArray(capture.rotation) || BASE_ROTATION_OFFSET;
       activeOrbitSpeed = capture.orbitSpeed;
       activeFrameInterval = 1000 / capture.renderFps;
-      orbitStartTime = performance.now() * 0.001;
+      orbitStartTime =
+        performance.now() * 0.001 -
+        (cachedCapture.isCached ? getCachedOrbitElapsedSeconds(capture) : 0);
+      activeCaptureUrl = capture.url;
       renderer.backgroundColor = colorFromHex(capture.backgroundColor);
-      camera.position = orbitCenter.add(basePositionOffset);
-      camera.rotation = SPLAT.Quaternion.FromEuler(baseRotation);
+      updateCameraForTime(performance.now() * 0.001);
       camera.data.near = capture.near || 0.01;
       camera.data.far = capture.far || 6000;
       resize();
@@ -381,7 +419,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
       stageElement.classList.add("is-loaded");
       stageElement.classList.remove("is-loading", "is-transitioning");
       setStatus(capture.label, "");
-      scheduleNextCapture(captures, capture, rotationMs);
+      scheduleNextCapture(captures, rotationMs);
     } catch (error) {
       console.error("Failed to load hero 3DGS capture", error);
 
@@ -393,7 +431,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
       stageElement.classList.toggle("is-loaded", hasCurrentCapture);
       stageElement.classList.remove("is-loading", "is-transitioning");
       setStatus("Unable to load 3DGS capture", "");
-      scheduleNextCapture(captures, capture, Math.min(rotationMs, 5000));
+      scheduleNextCapture(captures, Math.min(rotationMs, 5000));
     }
   };
 
@@ -535,13 +573,12 @@ function rotateOffsetAroundYAxis(offset: SPLAT.Vector3, radians: number): SPLAT.
   );
 }
 
-function getCaptureDisplayMs(capture: NormalizedCapture, rotationMs: number): number {
-  if (!capture.orbitSpeed) {
-    return rotationMs;
+function normalizePositiveModulo(value: number, divisor: number): number {
+  if (!Number.isFinite(value) || !Number.isFinite(divisor) || divisor <= 0) {
+    return 0;
   }
 
-  const fullOrbitMs = (Math.PI * 2 * 1000) / Math.abs(capture.orbitSpeed);
-  return Math.min(rotationMs, fullOrbitMs);
+  return ((value % divisor) + divisor) % divisor;
 }
 
 function waitForSceneFade(): Promise<void> {
