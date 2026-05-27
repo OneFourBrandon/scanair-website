@@ -1286,7 +1286,28 @@ svg {
     linear-gradient(180deg, #1c2029 0%, #0b0d11 100%);
 }
 
+.sample-placeholder.has-fallback-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 10, 14, 0.08) 0%, rgba(8, 10, 14, 0.42) 100%),
+    linear-gradient(90deg, rgba(8, 10, 14, 0.28) 0%, transparent 52%);
+  pointer-events: none;
+}
+
+.sample-fallback-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.04);
+}
+
 .sample-mark {
+  position: relative;
+  z-index: 1;
   width: clamp(46px, 4.4vw, 68px);
   height: clamp(46px, 4.4vw, 68px);
   color: rgba(255, 255, 255, 0.3);
@@ -1299,6 +1320,7 @@ svg {
 
 .sample-pill {
   position: absolute;
+  z-index: 1;
   top: clamp(14px, 1.6vw, 20px);
   left: clamp(14px, 1.6vw, 20px);
   padding: 6px 10px;
@@ -2106,25 +2128,16 @@ svg {
     padding: 112px 0 76px;
   }
 
+  .hero-shade {
+    background: rgba(8, 10, 14, 0.58);
+  }
+
   .hero-inner {
     margin: 0 auto;
   }
 
   .hero-splat-disclaimer {
-    top: auto;
-    right: 16px;
-    bottom: 16px;
-    width: min(290px, calc(100vw - 32px));
-    padding: 9px 11px 10px;
-  }
-
-  .hero-splat-disclaimer span {
-    font-size: 0.62rem;
-  }
-
-  .hero-splat-disclaimer strong {
-    font-size: 0.76rem;
-    line-height: 1.4;
+    display: none;
   }
 
   .hero h1 {

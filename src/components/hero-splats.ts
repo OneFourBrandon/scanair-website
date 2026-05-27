@@ -82,7 +82,7 @@ declare global {
 
 const DEFAULT_MANIFEST_URL = "/splats/splats.json";
 const DEFAULT_ROTATION_MS = 14000;
-const DEFAULT_FALLBACK_SRC = "/assets/hero-property-scan.png";
+const DEFAULT_FALLBACK_SRC = "/assets/samples/chief-image.png";
 const DEFAULT_BACKGROUND_COLOR = "#090d11";
 const DEFAULT_ORBIT_SPEED = 0.06;
 const DEFAULT_RENDER_FPS = 60;
@@ -96,9 +96,71 @@ const stage = document.querySelector<HTMLElement>("[data-splat-showcase]");
 
 if (stage) {
   window.__scanAirHeroSplatDispose?.();
-  void initHeroSplatShowcase(stage).then((cleanup) => {
-    window.__scanAirHeroSplatDispose = cleanup;
-  });
+  let cleanupActiveHeroSplat: (() => void) | undefined;
+  let activeHeroSplatAbort: AbortController | undefined;
+  let heroSplatObserver: IntersectionObserver | undefined;
+  let mountRequestId = 0;
+
+  const unmountHeroSplat = () => {
+    mountRequestId += 1;
+    activeHeroSplatAbort?.abort();
+    activeHeroSplatAbort = undefined;
+    cleanupActiveHeroSplat?.();
+    cleanupActiveHeroSplat = undefined;
+    stage.classList.remove(
+      "is-loaded",
+      "is-loading",
+      "is-transitioning",
+      "is-loaded-instant",
+      "is-error",
+    );
+  };
+
+  const mountHeroSplat = () => {
+    if (cleanupActiveHeroSplat) {
+      return;
+    }
+
+    const requestId = mountRequestId + 1;
+    mountRequestId = requestId;
+    const abortController = new AbortController();
+    activeHeroSplatAbort = abortController;
+    stage.classList.add("is-loading");
+    void initHeroSplatShowcase(stage, abortController.signal).then((cleanup) => {
+      if (requestId !== mountRequestId) {
+        cleanup();
+        return;
+      }
+
+      cleanupActiveHeroSplat = cleanup;
+      if (activeHeroSplatAbort === abortController) {
+        activeHeroSplatAbort = undefined;
+      }
+    });
+  };
+
+  const disposeHeroSplat = () => {
+    heroSplatObserver?.disconnect();
+    unmountHeroSplat();
+  };
+
+  window.__scanAirHeroSplatDispose = disposeHeroSplat;
+
+  if ("IntersectionObserver" in window) {
+    heroSplatObserver = new IntersectionObserver((entries) => {
+      const isVisible = entries.some((entry) => entry.isIntersecting);
+
+      if (isVisible) {
+        mountHeroSplat();
+        return;
+      }
+
+      unmountHeroSplat();
+    });
+    heroSplatObserver.observe(stage);
+  } else {
+    mountHeroSplat();
+  }
 }
 
 if (import.meta.hot) {
@@ -108,7 +170,10 @@ if (import.meta.hot) {
   });
 }
 
-async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => void> {
+async function initHeroSplatShowcase(
+  stageElement: HTMLElement,
+  abortSignal?: AbortSignal,
+): Promise<() => void> {
   const canvas = stageElement.querySelector<HTMLCanvasElement>("[data-splat-canvas]");
   const fallback = stageElement.querySelector<HTMLImageElement>(".hero-splat-fallback");
   const statusLabel = stageElement.querySelector<HTMLElement>("[data-splat-status-label]");
@@ -157,12 +222,13 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     window.removeEventListener("pointermove", handlePointerMove);
     window.removeEventListener("pointerleave", handlePointerLeave);
     window.removeEventListener("pagehide", cleanup);
+    abortSignal?.removeEventListener("abort", cleanup);
     loadedCaptureCache.clear();
     captureOrbitElapsedCache.clear();
     renderer?.dispose();
   };
-  window.__scanAirHeroSplatDispose = cleanup;
 
+  abortSignal?.addEventListener("abort", cleanup, { once: true });
   const setStatus = (message: string, progress = "") => {
     if (statusLabel) {
       statusLabel.textContent = message;
@@ -450,7 +516,12 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
   };
 
   try {
-    const manifest = await fetchSplatManifest(config.manifestUrl);
+    const manifest = await fetchSplatManifest(config.manifestUrl, abortSignal);
+
+    if (isDisposed) {
+      return cleanup;
+    }
+
     const captures = normalizeCaptures(manifest, config);
 
     setFallback(manifest.fallbackSrc || config.fallbackSrc);
@@ -475,6 +546,10 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     frameRequest = window.requestAnimationFrame(animate);
     await loadCapture(captures, activeIndex, manifest.rotationMs || config.rotationMs);
   } catch (error) {
+    if (isDisposed || (error instanceof DOMException && error.name === "AbortError")) {
+      return cleanup;
+    }
+
     console.error("Failed to initialize hero 3DGS showcase", error);
     stageElement.classList.add("is-error");
     setFallback(config.fallbackSrc);
@@ -510,8 +585,11 @@ function getStageConfig(stageElement: HTMLElement): StageConfig {
   };
 }
 
-async function fetchSplatManifest(manifestUrl: string): Promise<SplatManifest> {
-  const response = await fetch(manifestUrl, { cache: "no-store" });
+async function fetchSplatManifest(
+  manifestUrl: string,
+  abortSignal?: AbortSignal,
+): Promise<SplatManifest> {
+  const response = await fetch(manifestUrl, { cache: "no-store", signal: abortSignal });
 
   if (!response.ok) {
     throw new Error(`Unable to load splat manifest: ${response.status}`);

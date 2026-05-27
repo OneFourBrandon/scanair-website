@@ -18,7 +18,17 @@ if (carousel) {
 
       slides.forEach((slide, i) => {
         slide.classList.toggle("is-active", i === activeIndex);
+        slide.toggleAttribute("data-carousel-active", i === activeIndex);
       });
+
+      carousel.dataset.activeSlide = String(activeIndex);
+      carousel.dispatchEvent(
+        new CustomEvent("carousel:change", {
+          detail: {
+            activeIndex,
+          },
+        }),
+      );
 
       if (count) {
         count.textContent = String(activeIndex + 1).padStart(2, "0");
@@ -38,6 +48,11 @@ if (carousel) {
     const slideTarget = (index: number) => {
       const slide = slides[index];
       return slide.offsetLeft + slide.offsetWidth / 2 - track.clientWidth / 2;
+    };
+
+    const centerActiveSlide = () => {
+      const maxLeft = track.scrollWidth - track.clientWidth;
+      track.scrollLeft = Math.max(0, Math.min(maxLeft, slideTarget(activeIndex)));
     };
 
     /* Index of the slide nearest the centre of the viewport. */
@@ -136,6 +151,14 @@ if (carousel) {
     nextBtn?.addEventListener("click", () => goToSlide(activeIndex + 1));
 
     render(0);
+    requestAnimationFrame(() => {
+      centerActiveSlide();
+      requestAnimationFrame(centerActiveSlide);
+    });
+
+    window.addEventListener("load", centerActiveSlide, { once: true });
+    window.addEventListener("resize", centerActiveSlide);
+    void document.fonts?.ready.then(centerActiveSlide);
   }
 }
 

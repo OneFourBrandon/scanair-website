@@ -18,14 +18,14 @@ if (footerMount) {
           <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
           <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
         </a>
-        <p>Local drone scanning, exterior documentation, and planning visuals for North Bay, Ontario.</p>
+        <p>Local drone scanning, exterior documentation, and planning visuals for North Bay, Ontario & surrounding areas.</p>
       </div>
       <nav class="footer-col" aria-label="Footer navigation">
         <p class="footer-heading">Navigate</p>
         <a href="${sectionHref("services")}">Services</a>
+        <a href="${sectionHref("samples")}">Samples</a>
         <a href="${sectionHref("process")}">Process</a>
         <a href="${sectionHref("solutions")}">Use Cases</a>
-        <a href="${sectionHref("samples")}">Samples</a>
       </nav>
       <div class="footer-col">
         <p class="footer-heading">Get in touch</p>

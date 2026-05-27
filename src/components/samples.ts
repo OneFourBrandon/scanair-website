@@ -1,9 +1,64 @@
 const sampleEmbeds = document.querySelectorAll<HTMLElement>("[data-supersplat-embed]");
+const samplesCarousel = document.querySelector<HTMLElement>("[data-carousel]");
+const placeholderTemplates = new WeakMap<HTMLElement, Node[]>();
+const pendingUnmountTimers = new WeakMap<HTMLElement, number>();
+let fullscreenElement: Element | null = null;
+
+const INTERACTION_UNLOAD_GRACE_MS = 120000;
+
+const cancelPendingUnmount = (container: HTMLElement) => {
+  window.clearTimeout(pendingUnmountTimers.get(container));
+  pendingUnmountTimers.delete(container);
+};
+
+const markViewerInteraction = (container: HTMLElement) => {
+  container.dataset.viewerActiveUntil = String(Date.now() + INTERACTION_UNLOAD_GRACE_MS);
+};
+
+const isEmbedInActiveSlide = (container: HTMLElement) => {
+  const slide = container.closest<HTMLElement>("[data-carousel-slide]");
+
+  return !slide || slide.classList.contains("is-active");
+};
+
+const applyFallbackImage = (container: HTMLElement) => {
+  const fallbackSrc = container.dataset.supersplatFallback?.trim();
+  const placeholder = container.querySelector<HTMLElement>(".sample-placeholder");
+
+  if (!fallbackSrc || !placeholder || placeholder.querySelector(".sample-fallback-image")) {
+    return;
+  }
+
+  const fallbackImage = document.createElement("img");
+  fallbackImage.className = "sample-fallback-image";
+  fallbackImage.src = fallbackSrc;
+  fallbackImage.alt =
+    container.dataset.supersplatFallbackAlt ||
+    container.dataset.supersplatTitle ||
+    "SuperSplat scene preview";
+  fallbackImage.loading = "lazy";
+  fallbackImage.decoding = "async";
+
+  placeholder.classList.add("has-fallback-image");
+  placeholder.insertBefore(fallbackImage, placeholder.firstChild);
+};
+
+sampleEmbeds.forEach((container) => {
+  applyFallbackImage(container);
+  placeholderTemplates.set(
+    container,
+    Array.from(container.childNodes).map((node) => node.cloneNode(true)),
+  );
+  container.addEventListener("pointerenter", () => markViewerInteraction(container));
+  container.addEventListener("pointerdown", () => markViewerInteraction(container));
+  container.addEventListener("focusin", () => markViewerInteraction(container));
+});
 
 const mountSuperSplatEmbed = (container: HTMLElement) => {
   const embedSrc = container.dataset.supersplatSrc?.trim();
 
   if (!embedSrc || container.dataset.embedLoaded === "true") {
+    cancelPendingUnmount(container);
     return;
   }
 
@@ -21,16 +76,52 @@ const mountSuperSplatEmbed = (container: HTMLElement) => {
   iframe.title = container.dataset.supersplatTitle || "ScanAir SuperSplat sample";
   iframe.loading = "lazy";
   iframe.referrerPolicy = "strict-origin-when-cross-origin";
-  iframe.allow = "fullscreen; xr-spatial-tracking; gyroscope; accelerometer";
+  iframe.allow = "fullscreen *; xr-spatial-tracking; gyroscope; accelerometer";
   iframe.allowFullscreen = true;
+  iframe.setAttribute("webkitallowfullscreen", "true");
+  iframe.setAttribute("mozallowfullscreen", "true");
+  iframe.addEventListener("load", () => markViewerInteraction(container));
 
   container.dataset.embedLoaded = "true";
   container.classList.add("is-embed-loaded");
+  markViewerInteraction(container);
   container.replaceChildren(iframe);
 };
 
+const unmountSuperSplatEmbed = (container: HTMLElement, force = false) => {
+  if (container.dataset.embedLoaded !== "true") {
+    cancelPendingUnmount(container);
+    return;
+  }
+
+  if (fullscreenElement && container.contains(fullscreenElement)) {
+    return;
+  }
+
+  const activeUntil = Number(container.dataset.viewerActiveUntil || 0);
+
+  if (!force && activeUntil > Date.now()) {
+    cancelPendingUnmount(container);
+    pendingUnmountTimers.set(
+      container,
+      window.setTimeout(() => unmountSuperSplatEmbed(container), activeUntil - Date.now()),
+    );
+    return;
+  }
+
+  const placeholderNodes = placeholderTemplates.get(container) || [];
+
+  cancelPendingUnmount(container);
+  delete container.dataset.viewerActiveUntil;
+  container.dataset.embedLoaded = "false";
+  container.classList.remove("is-embed-loaded");
+  container.replaceChildren(...placeholderNodes.map((node) => node.cloneNode(true)));
+};
+
 if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
+  const sampleSection = document.getElementById("samples");
+  let isSampleSectionVisible = !sampleSection;
+  const embedObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
@@ -38,9 +129,9 @@ if ("IntersectionObserver" in window) {
         }
 
         const container = entry.target;
-        observer.unobserve(container);
+        embedObserver.unobserve(container);
 
-        if (container instanceof HTMLElement) {
+        if (container instanceof HTMLElement && isEmbedInActiveSlide(container)) {
           mountSuperSplatEmbed(container);
         }
       });
@@ -48,7 +139,81 @@ if ("IntersectionObserver" in window) {
     { rootMargin: "360px 0px" },
   );
 
-  sampleEmbeds.forEach((container) => observer.observe(container));
+  const observeEmbeds = () => {
+    sampleEmbeds.forEach((container) => {
+      cancelPendingUnmount(container);
+
+      if (!isEmbedInActiveSlide(container)) {
+        unmountSuperSplatEmbed(container, true);
+        return;
+      }
+
+      if (container.dataset.embedLoaded !== "true") {
+        embedObserver.observe(container);
+      }
+    });
+  };
+
+  const updateActiveCarouselEmbed = () => {
+    if (fullscreenElement) {
+      return;
+    }
+
+    embedObserver.disconnect();
+
+    sampleEmbeds.forEach((container) => {
+      if (isEmbedInActiveSlide(container) && isSampleSectionVisible) {
+        cancelPendingUnmount(container);
+
+        if (container.dataset.embedLoaded !== "true") {
+          embedObserver.observe(container);
+        }
+        return;
+      }
+
+      unmountSuperSplatEmbed(container, true);
+    });
+  };
+
+  samplesCarousel?.addEventListener("carousel:change", updateActiveCarouselEmbed);
+
+  document.addEventListener("fullscreenchange", () => {
+    fullscreenElement = document.fullscreenElement;
+
+    if (fullscreenElement) {
+      embedObserver.disconnect();
+      return;
+    }
+
+    if (isSampleSectionVisible) {
+      updateActiveCarouselEmbed();
+      return;
+    }
+
+    sampleEmbeds.forEach((container) => unmountSuperSplatEmbed(container, true));
+  });
+
+  if (sampleSection) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      if (fullscreenElement) {
+        return;
+      }
+
+      isSampleSectionVisible = entries.some((entry) => entry.isIntersecting);
+
+      if (isSampleSectionVisible) {
+        updateActiveCarouselEmbed();
+        return;
+      }
+
+      embedObserver.disconnect();
+      sampleEmbeds.forEach((container) => unmountSuperSplatEmbed(container, true));
+    });
+
+    sectionObserver.observe(sampleSection);
+  } else {
+    observeEmbeds();
+  }
 } else {
   sampleEmbeds.forEach(mountSuperSplatEmbed);
 }
