@@ -15,7 +15,25 @@ npm run dev
 npm run build
 ```
 
-The site is a Vite static build. Deploy the `dist/` output to Cloudflare, Netlify, or another static host.
+The site is a Vite build served by a Cloudflare Worker so `/api/contact` can send contact form messages securely.
+
+## Contact Form Email
+
+The contact form posts to `/api/contact`. The Worker sends the message through Brevo's transactional email API and sets `replyTo` to the website visitor, so replies from the ScanAir inbox go back to the person who submitted the form.
+
+Before deploying, create a Brevo API key and add it as a Cloudflare secret:
+
+```bash
+npx wrangler secret put BREVO_API_KEY
+```
+
+`CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, and `CONTACT_FROM_NAME` are configured in `wrangler.jsonc`. The `CONTACT_FROM_EMAIL` address must be a verified Brevo sender or a sender on a verified Brevo domain.
+
+For local Worker testing, create `.dev.vars`:
+
+```ini
+BREVO_API_KEY=your-brevo-api-key
+```
 
 ## Docker
 

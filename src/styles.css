@@ -1864,6 +1864,14 @@ svg {
   grid-column: 1 / -1;
 }
 
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-field span {
   color: var(--ink-2);
   font-family: var(--font-mono);
@@ -1871,6 +1879,12 @@ svg {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.form-field span b {
+  color: var(--red);
+  font: inherit;
+  font-weight: 700;
 }
 
 .contact-form input,
@@ -1915,6 +1929,32 @@ svg {
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.55;
+}
+
+.contact-form-status {
+  min-height: 24px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.contact-form-status[data-state="success"] {
+  color: #176f43;
+}
+
+.contact-form-status[data-state="error"] {
+  color: var(--red);
+}
+
+.contact-form-status[data-state="pending"] {
+  color: var(--ink);
+}
+
+.contact-form .button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
 }
 
 /* ---- scroll reveal ---------------------------------------- */

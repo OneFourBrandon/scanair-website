@@ -120,7 +120,7 @@
 
         <div class="contact-form-side">
           <div class="contact-form-inner">
-            <form class="contact-form" data-contact-form>
+            <form class="contact-form" action="/api/contact" method="post" data-contact-form>
             <div class="section-rule">
               <span class="section-rule-id">&sect; 02</span>
               <span class="section-rule-line"></span>
@@ -129,11 +129,11 @@
             <h2 class="contact-form-title">Send project details</h2>
             <div class="form-grid">
               <label class="form-field">
-                <span>Name</span>
+                <span>Name <b aria-hidden="true">*</b></span>
                 <input type="text" name="name" autocomplete="name" required />
               </label>
               <label class="form-field">
-                <span>Email</span>
+                <span>Email <b aria-hidden="true">*</b></span>
                 <input type="email" name="email" autocomplete="email" required />
               </label>
               <label class="form-field">
@@ -141,7 +141,7 @@
                 <input type="tel" name="phone" autocomplete="tel" />
               </label>
               <label class="form-field">
-                <span>Project Type</span>
+                <span>Project Type <b aria-hidden="true">*</b></span>
                 <select name="project_type" required>
                   <option value="">Select one</option>
                   <option value="Aerial capture">Aerial capture</option>
@@ -152,7 +152,7 @@
                 </select>
               </label>
               <label class="form-field full">
-                <span>Message</span>
+                <span>Message <b aria-hidden="true">*</b></span>
                 <textarea
                   name="message"
                   rows="7"
@@ -160,7 +160,17 @@
                   required
                 ></textarea>
               </label>
+              <label class="form-field contact-honeypot" aria-hidden="true">
+                <span>Company website</span>
+                <input
+                  type="text"
+                  name="company_website"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </label>
             </div>
+            <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
             <div class="contact-form-footer">
               <p>We will reply by email after reviewing the project details.</p>
               <button class="button button-primary" type="submit">Send Message</button>

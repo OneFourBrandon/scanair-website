@@ -52,8 +52,9 @@ document.querySelectorAll<HTMLButtonElement>("[data-reveal-contact]").forEach((b
 });
 
 const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
+const contactFormStatus = document.querySelector<HTMLElement>("[data-contact-form-status]");
 
-contactForm?.addEventListener("submit", (event) => {
+contactForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!contactForm.reportValidity()) {
@@ -61,21 +62,60 @@ contactForm?.addEventListener("submit", (event) => {
   }
 
   const formData = new FormData(contactForm);
-  const name = String(formData.get("name") || "Website visitor").trim();
-  const replyEmail = String(formData.get("email") || "").trim();
-  const phone = String(formData.get("phone") || "").trim();
-  const projectType = String(formData.get("project_type") || "").trim();
-  const message = String(formData.get("message") || "").trim();
-  const subject = `ScanAir project inquiry from ${name}`;
-  const body = [
-    `Name: ${name}`,
-    `Email: ${replyEmail}`,
-    `Phone: ${phone || "Not provided"}`,
-    `Project type: ${projectType || "Not provided"}`,
-    "",
-    "Message:",
-    message,
-  ].join("\n");
+  const submitButton = contactForm.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const originalButtonText = submitButton?.textContent || "Send Message";
 
-  window.location.href = `${emailHref}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  setContactFormStatus("Sending message...", "pending");
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+  }
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData.entries())),
+    });
+    const result = await readContactResponse(response);
+
+    if (!response.ok) {
+      throw new Error(result.message || "We could not send the message right now.");
+    }
+
+    contactForm.reset();
+    setContactFormStatus("Message sent. We will reply after reviewing the project details.", "success");
+  } catch (error) {
+    setContactFormStatus(
+      error instanceof Error
+        ? error.message
+        : "We could not send the message right now. Please try again shortly.",
+      "error",
+    );
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
 });
+
+function setContactFormStatus(message: string, state: "pending" | "success" | "error") {
+  if (!contactFormStatus) {
+    return;
+  }
+
+  contactFormStatus.textContent = message;
+  contactFormStatus.dataset.state = state;
+}
+
+async function readContactResponse(response: Response): Promise<{ message?: string }> {
+  try {
+    return await response.json();
+  } catch {
+    return {};
+  }
+}
