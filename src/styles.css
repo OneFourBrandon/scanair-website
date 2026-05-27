@@ -407,6 +407,10 @@ svg {
   transition: opacity 1000ms ease;
 }
 
+.hero-splat-stage.is-loaded-instant .hero-splat-canvas {
+  transition: none;
+}
+
 .hero-splat-stage.is-loaded .hero-splat-canvas {
   opacity: 1;
 }
@@ -419,6 +423,42 @@ svg {
   opacity: 0;
 }
 
+.hero-splat-disclaimer {
+  position: absolute;
+  z-index: 2;
+  top: clamp(82px, 9vh, 108px);
+  right: clamp(18px, 4vw, 42px);
+  width: min(292px, calc(100vw - 36px));
+  padding: 11px 13px 12px;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  background: rgba(13, 15, 19, 0.54);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+.hero-splat-disclaimer span {
+  display: block;
+  margin: 0 0 5px;
+  color: var(--cyan-bright);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-splat-disclaimer strong {
+  display: block;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.83rem;
+  font-weight: 550;
+  line-height: 1.45;
+}
+
 .hero-shade {
   z-index: 1;
   pointer-events: none;
@@ -426,8 +466,8 @@ svg {
     linear-gradient(
       100deg,
       rgba(13, 15, 19, 0.94) 0%,
-      rgba(13, 15, 19, 0.62) 38%,
-      rgba(13, 15, 19, 0.12) 72%,
+      rgba(13, 15, 19, 0.54) 34%,
+      rgba(13, 15, 19, 0.06) 62%,
       rgba(13, 15, 19, 0) 100%
     ),
     linear-gradient(
@@ -2028,6 +2068,23 @@ svg {
 
   .hero-inner {
     margin: 0 auto;
+  }
+
+  .hero-splat-disclaimer {
+    top: auto;
+    right: 16px;
+    bottom: 16px;
+    width: min(290px, calc(100vw - 32px));
+    padding: 9px 11px 10px;
+  }
+
+  .hero-splat-disclaimer span {
+    font-size: 0.62rem;
+  }
+
+  .hero-splat-disclaimer strong {
+    font-size: 0.76rem;
+    line-height: 1.4;
   }
 
   .hero h1 {

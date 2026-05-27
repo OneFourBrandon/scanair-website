@@ -19,7 +19,8 @@ Example:
       "rotation": [-0.05, -0.05, 0],
       "backgroundColor": "#101820",
       "orbitSpeed": -0.06,
-      "renderFps": 60
+      "renderFps": 60,
+      "mousePositionAmplitude": 0.5
     }
   ]
 }
@@ -30,6 +31,8 @@ Use the top-level `backgroundColor` for the default renderer backdrop, then add 
 The camera orbits around the splat center using `positionOffset` as the starting distance from the center. Set `rotation` to the view that faces the center, then use `orbitSpeed` for the slow turn. Positive and negative values reverse direction; `0` disables orbiting for a capture.
 
 `renderFps` controls how often the splat renderer updates while motion is active. Lower values give the depth-sort worker more time and can reduce flicker on dense captures. Values are clamped between `12` and `60`.
+
+`mousePositionAmplitude` controls only the camera position sway from mouse movement. It does not change the mouse-driven rotation. Use `1` for the default movement, lower values like `0.25` or `0.5` for smaller-scale captures, and `0` to disable mouse position sway for a capture.
 
 ## Camera Direction Reference
 
@@ -66,7 +69,7 @@ If the camera is looking away from the subject, adjust the `y` value first. A 18
 
 `orbitSpeed` rotates the `positionOffset` around the splat center. Positive and negative values orbit in opposite directions. The code applies the opposite yaw to the camera while orbiting, so the original `rotation` should be the view that faces the center at the starting offset.
 
-The splat switches after whichever happens first: `rotationMs` or one full orbit.
+The splat switches after `rotationMs`. The camera can continue orbiting past a full turn if the timeout is longer than one orbit.
 
 The live captures are served from the `scanair-website` Cloudflare R2 bucket through `https://cdn.scanair.ca/`.
 Keep the same `items` list and set `r2BaseUrl` to the public R2 folder URL when moving between local files and R2.

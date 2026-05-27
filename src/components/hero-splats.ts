@@ -13,6 +13,7 @@ type SplatManifestEntry =
       backgroundColor?: string;
       orbitSpeed?: number;
       renderFps?: number;
+      mousePositionAmplitude?: number;
       near?: number;
       far?: number;
     };
@@ -25,6 +26,7 @@ type SplatManifest = {
   backgroundColor?: string;
   orbitSpeed?: number;
   renderFps?: number;
+  mousePositionAmplitude?: number;
   items?: SplatManifestEntry[];
   splats?: SplatManifestEntry[];
 };
@@ -38,6 +40,7 @@ type StageRuntimeConfig = {
   orbitSpeed?: number | string;
   renderFps?: number | string;
   rotationMs?: number | string;
+  mousePositionAmplitude?: number | string;
 };
 
 type StageConfig = {
@@ -49,6 +52,7 @@ type StageConfig = {
   orbitSpeed: number;
   renderFps: number;
   rotationMs: number;
+  mousePositionAmplitude: number;
 };
 
 type NormalizedCapture = {
@@ -59,6 +63,7 @@ type NormalizedCapture = {
   backgroundColor?: string;
   orbitSpeed: number;
   renderFps: number;
+  mousePositionAmplitude: number;
   near?: number;
   far?: number;
 };
@@ -81,6 +86,7 @@ const DEFAULT_FALLBACK_SRC = "/assets/hero-property-scan.png";
 const DEFAULT_BACKGROUND_COLOR = "#090d11";
 const DEFAULT_ORBIT_SPEED = 0.06;
 const DEFAULT_RENDER_FPS = 60;
+const DEFAULT_MOUSE_POSITION_AMPLITUDE = 1;
 const SCENE_FADE_OUT_MS = 1000;
 const SCENE_PREWARM_MS = 500;
 const BASE_ZOOM_OFFSET = new SPLAT.Vector3(0, 0, 1.3);
@@ -128,6 +134,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
   let baseRotation = BASE_ROTATION_OFFSET;
   let activeOrbitSpeed = config.orbitSpeed;
   let activeFrameInterval = 1000 / config.renderFps;
+  let activeMousePositionAmplitude = config.mousePositionAmplitude;
   let orbitStartTime = 0;
   let activeCaptureUrl = "";
   let isDisposed = false;
@@ -146,7 +153,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
     window.cancelAnimationFrame(frameRequest);
     window.clearTimeout(cycleTimer);
     resizeObserver?.disconnect();
-    stageElement.classList.remove("is-loading", "is-transitioning");
+    stageElement.classList.remove("is-loading", "is-transitioning", "is-loaded-instant");
     window.removeEventListener("pointermove", handlePointerMove);
     window.removeEventListener("pointerleave", handlePointerLeave);
     window.removeEventListener("pagehide", cleanup);
@@ -256,9 +263,9 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
 
     camera.position = orbitCenter.add(orbitOffset).add(
       new SPLAT.Vector3(
-        -pointer.x * 0.56,
-        -pointer.y * 0.16,
-        pointer.x * 0.1,
+        -pointer.x * 0.56 * activeMousePositionAmplitude,
+        -pointer.y * 0.16 * activeMousePositionAmplitude,
+        pointer.x * 0.1 * activeMousePositionAmplitude,
       ),
     );
     camera.rotation = SPLAT.Quaternion.FromEuler(dynamicRotation);
@@ -395,6 +402,7 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
       baseRotation = vectorFromArray(capture.rotation) || BASE_ROTATION_OFFSET;
       activeOrbitSpeed = capture.orbitSpeed;
       activeFrameInterval = 1000 / capture.renderFps;
+      activeMousePositionAmplitude = capture.mousePositionAmplitude;
       orbitStartTime =
         performance.now() * 0.001 -
         (cachedCapture.isCached ? getCachedOrbitElapsedSeconds(capture) : 0);
@@ -416,6 +424,12 @@ async function initHeroSplatShowcase(stageElement: HTMLElement): Promise<() => v
       }
 
       hasRenderableSplat = true;
+      if (!hasCurrentCapture) {
+        stageElement.classList.add("is-loaded-instant");
+        window.requestAnimationFrame(() => {
+          stageElement.classList.remove("is-loaded-instant");
+        });
+      }
       stageElement.classList.add("is-loaded");
       stageElement.classList.remove("is-loading", "is-transitioning");
       setStatus(capture.label, "");
@@ -477,6 +491,10 @@ function getStageConfig(stageElement: HTMLElement): StageConfig {
   const rotationMs = Number(runtimeConfig.rotationMs ?? dataset.rotationMs ?? DEFAULT_ROTATION_MS);
   const orbitSpeed = Number(runtimeConfig.orbitSpeed ?? dataset.orbitSpeed ?? DEFAULT_ORBIT_SPEED);
   const renderFps = Number(runtimeConfig.renderFps ?? dataset.renderFps ?? DEFAULT_RENDER_FPS);
+  const mousePositionAmplitude = normalizeMousePositionAmplitude(
+    runtimeConfig.mousePositionAmplitude ?? dataset.mousePositionAmplitude,
+    DEFAULT_MOUSE_POSITION_AMPLITUDE,
+  );
 
   return {
     manifestUrl: runtimeConfig.manifestUrl || dataset.manifestUrl || DEFAULT_MANIFEST_URL,
@@ -488,6 +506,7 @@ function getStageConfig(stageElement: HTMLElement): StageConfig {
     orbitSpeed: Number.isFinite(orbitSpeed) ? orbitSpeed : DEFAULT_ORBIT_SPEED,
     renderFps: normalizeRenderFps(renderFps),
     rotationMs: Number.isFinite(rotationMs) ? rotationMs : DEFAULT_ROTATION_MS,
+    mousePositionAmplitude,
   };
 }
 
@@ -542,6 +561,16 @@ function normalizeCaptures(manifest: SplatManifest, config: StageConfig): Normal
         typeof entry === "string"
           ? normalizeRenderFps(manifest.renderFps ?? config.renderFps)
           : normalizeRenderFps(entry.renderFps ?? manifest.renderFps ?? config.renderFps),
+      mousePositionAmplitude:
+        typeof entry === "string"
+          ? normalizeMousePositionAmplitude(
+              manifest.mousePositionAmplitude,
+              config.mousePositionAmplitude,
+            )
+          : normalizeMousePositionAmplitude(
+              entry.mousePositionAmplitude ?? manifest.mousePositionAmplitude,
+              config.mousePositionAmplitude,
+            ),
       near: typeof entry === "string" ? undefined : entry.near,
       far: typeof entry === "string" ? undefined : entry.far,
     });
@@ -621,6 +650,19 @@ function normalizeRenderFps(value: number): number {
   }
 
   return Math.min(60, Math.max(12, value));
+}
+
+function normalizeMousePositionAmplitude(
+  value: number | string | undefined,
+  fallback: number,
+): number {
+  const parsed = Number(value);
+
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
+  return Math.max(0, parsed);
 }
 
 export {};
