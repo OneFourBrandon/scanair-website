@@ -2,8 +2,8 @@ const decodeContact = (encoded: number[]) =>
   encoded.map((value, index) => String.fromCharCode(value - ((index % 7) + 3))).join("");
 
 const email = decodeContact([
-  113, 102, 104, 110, 112, 120, 124, 112, 109, 121, 110, 122, 72, 112, 112, 101,
-  110, 114, 53, 107, 120, 112,
+  102, 115, 115, 122, 104, 107, 125, 67, 119, 104, 103, 117, 105, 114, 117, 50,
+  104, 103,
 ]);
 
 const emailHref = `mailto:${email}`;
