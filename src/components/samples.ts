@@ -71,6 +71,10 @@ const mountSuperSplatEmbed = (container: HTMLElement) => {
     return;
   }
 
+  if (embedUrl.hostname === "superspl.at" && !embedUrl.searchParams.has("noui")) {
+    embedUrl.searchParams.set("noui", "1");
+  }
+
   const iframe = document.createElement("iframe");
   iframe.src = embedUrl.href;
   iframe.title = container.dataset.supersplatTitle || "ScanAir SuperSplat sample";

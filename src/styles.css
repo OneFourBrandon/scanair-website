@@ -486,7 +486,7 @@ svg {
 }
 
 .hero-content {
-  width: min(640px, 100%);
+  width: min(720px, 100%);
 }
 
 .eyebrow {
@@ -525,7 +525,7 @@ svg {
 }
 
 .hero-copy {
-  max-width: 510px;
+  max-width: 580px;
   margin: 0 0 34px;
   color: rgba(255, 255, 255, 0.82);
   font-size: clamp(1.08rem, 1.5vw, 1.22rem);
