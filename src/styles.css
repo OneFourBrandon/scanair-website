@@ -1485,15 +1485,13 @@ svg {
   position: relative;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  aspect-ratio: 16 / 8.7;
-  min-height: 420px;
+  aspect-ratio: 16 / 7.5;
+  min-height: 360px;
   overflow: hidden;
   color: var(--white);
   background: #0c0e12;
   border-block: 1px solid rgba(20, 22, 26, 0.16);
   box-shadow: 0 44px 80px -62px rgba(0, 0, 0, 0.72);
-  cursor: ew-resize;
-  touch-action: pan-y;
 }
 
 .ortho-image {
@@ -1512,10 +1510,10 @@ svg {
 
 .ortho-after {
   clip-path: polygon(
-    calc(100% - var(--wipe)) 0,
-    100% 0,
-    100% 100%,
-    calc(200% - var(--wipe)) 100%
+    0 0,
+    calc(var(--wipe) - 100%) 0,
+    var(--wipe) 100%,
+    0 100%
   );
   filter: saturate(1.04) contrast(1.03);
 }
@@ -1540,59 +1538,27 @@ svg {
   left: clamp(18px, 3vw, 48px);
 }
 
-.ortho-label-after {
-  right: clamp(18px, 3vw, 48px);
-}
-
 .ortho-divider {
   position: absolute;
   z-index: 3;
-  top: -62%;
-  left: calc(100% - var(--wipe));
-  width: 2px;
-  height: 224%;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow:
-    0 0 0 1px rgba(197, 32, 42, 0.54),
-    0 0 34px rgba(197, 32, 42, 0.46);
-  transform: rotate(42deg);
-  transform-origin: top center;
+  inset: 0;
   pointer-events: none;
 }
 
-.ortho-divider-handle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 50%;
-  background: rgba(197, 32, 42, 0.92);
-  box-shadow: 0 18px 32px -18px rgba(0, 0, 0, 0.9);
-  transform: translate(-50%, -50%);
-}
-
-.ortho-divider-handle::before,
-.ortho-divider-handle::after {
+.ortho-divider::before {
   content: "";
   position: absolute;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid var(--white);
-  border-left: 2px solid var(--white);
-}
-
-.ortho-divider-handle::before {
-  left: 13px;
-  transform: translateY(-50%) rotate(-45deg);
-}
-
-.ortho-divider-handle::after {
-  right: 13px;
-  transform: translateY(-50%) rotate(135deg);
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  clip-path: polygon(
+    calc(var(--wipe) - 100.08%) 0,
+    calc(var(--wipe) - 99.92%) 0,
+    calc(var(--wipe) + 0.08%) 100%,
+    calc(var(--wipe) - 0.08%) 100%
+  );
+  filter:
+    drop-shadow(0 0 1px rgba(197, 32, 42, 0.72))
+    drop-shadow(0 0 18px rgba(197, 32, 42, 0.46));
 }
 
 /* ---- use cases head --------------------------------------- */
@@ -2224,8 +2190,8 @@ svg {
   }
 
   .ortho-compare {
-    aspect-ratio: 4 / 3;
-    min-height: 360px;
+    aspect-ratio: 4 / 2.8;
+    min-height: 320px;
   }
 
   .contact-layout {
@@ -2288,20 +2254,26 @@ svg {
     display: none;
   }
 
+  .ortho-mapping {
+    padding-block: clamp(44px, 10vw, 64px);
+  }
+
+  .ortho-layout {
+    gap: 24px;
+  }
+
   .ortho-compare {
-    aspect-ratio: 3 / 4;
-    min-height: 430px;
+    width: var(--shell);
+    margin-left: 0;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+    border: 1px solid rgba(20, 22, 26, 0.16);
   }
 
   .ortho-label {
     top: 14px;
     padding: 6px 9px;
     font-size: 0.61rem;
-  }
-
-  .ortho-divider-handle {
-    width: 42px;
-    height: 42px;
   }
 
   .cta-strip {
