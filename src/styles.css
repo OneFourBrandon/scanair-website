@@ -1469,6 +1469,132 @@ svg {
   transition: width 440ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* ---- ortho mapping comparison ----------------------------- */
+
+.ortho-mapping {
+  overflow: hidden;
+}
+
+.ortho-layout {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+}
+
+.ortho-compare {
+  --wipe: 0%;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  aspect-ratio: 16 / 8.7;
+  min-height: 420px;
+  overflow: hidden;
+  color: var(--white);
+  background: #0c0e12;
+  border-block: 1px solid rgba(20, 22, 26, 0.16);
+  box-shadow: 0 44px 80px -62px rgba(0, 0, 0, 0.72);
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+
+.ortho-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+.ortho-before {
+  filter: saturate(0.82) contrast(0.96);
+}
+
+.ortho-after {
+  clip-path: polygon(
+    calc(100% - var(--wipe)) 0,
+    100% 0,
+    100% 100%,
+    calc(200% - var(--wipe)) 100%
+  );
+  filter: saturate(1.04) contrast(1.03);
+}
+
+.ortho-label {
+  position: absolute;
+  z-index: 2;
+  top: clamp(18px, 2vw, 30px);
+  padding: 7px 11px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(11, 13, 17, 0.62);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ortho-label-before {
+  left: clamp(18px, 3vw, 48px);
+}
+
+.ortho-label-after {
+  right: clamp(18px, 3vw, 48px);
+}
+
+.ortho-divider {
+  position: absolute;
+  z-index: 3;
+  top: -62%;
+  left: calc(100% - var(--wipe));
+  width: 2px;
+  height: 224%;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 0 0 1px rgba(197, 32, 42, 0.54),
+    0 0 34px rgba(197, 32, 42, 0.46);
+  transform: rotate(42deg);
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.ortho-divider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 50%;
+  background: rgba(197, 32, 42, 0.92);
+  box-shadow: 0 18px 32px -18px rgba(0, 0, 0, 0.9);
+  transform: translate(-50%, -50%);
+}
+
+.ortho-divider-handle::before,
+.ortho-divider-handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--white);
+  border-left: 2px solid var(--white);
+}
+
+.ortho-divider-handle::before {
+  left: 13px;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.ortho-divider-handle::after {
+  right: 13px;
+  transform: translateY(-50%) rotate(135deg);
+}
+
 /* ---- use cases head --------------------------------------- */
 
 .usecases-head {
@@ -2097,6 +2223,11 @@ svg {
     --slide-w: 86vw;
   }
 
+  .ortho-compare {
+    aspect-ratio: 4 / 3;
+    min-height: 360px;
+  }
+
   .contact-layout {
     grid-template-columns: 1fr;
     min-height: 0;
@@ -2155,6 +2286,22 @@ svg {
 
   .hero-meta {
     display: none;
+  }
+
+  .ortho-compare {
+    aspect-ratio: 3 / 4;
+    min-height: 430px;
+  }
+
+  .ortho-label {
+    top: 14px;
+    padding: 6px 9px;
+    font-size: 0.61rem;
+  }
+
+  .ortho-divider-handle {
+    width: 42px;
+    height: 42px;
   }
 
   .cta-strip {

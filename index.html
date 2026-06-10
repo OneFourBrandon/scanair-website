@@ -28,44 +28,7 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <header class="site-header" aria-label="Primary navigation">
-      <a class="brand" href="/" aria-label="ScanAir home">
-        <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
-        <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
-      </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#services">Services</a>
-        <a href="#samples">Samples</a>
-        <a href="#process">Process</a>
-        <a href="#solutions">Use Cases</a>
-        <a href="https://path.scanair.ca/">DJI Path Creator</a>
-      </nav>
-      <div class="nav-actions">
-        <a class="button button-primary nav-cta" href="/contact">Contact Us</a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          data-nav-toggle
-        >
-          <span class="nav-toggle-box" aria-hidden="true">
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-          </span>
-        </button>
-      </div>
-      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-        <a href="#services">Services</a>
-        <a href="#samples">Samples</a>
-        <a href="#process">Process</a>
-        <a href="#solutions">Use Cases</a>
-        <a href="https://path.scanair.ca/">DJI Path Creator</a>
-        <a class="button button-primary" href="/contact">Contact Us</a>
-      </nav>
-    </header>
+    <div data-site-header></div>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
@@ -368,10 +331,56 @@
         </div>
       </section>
 
-      <section class="band band-paper2 process" id="process" aria-labelledby="process-title">
+      <section class="band band-paper ortho-mapping" id="ortho-mapping" aria-labelledby="ortho-title">
         <div class="shell">
           <div class="section-rule">
             <span class="section-rule-id">&sect; 03</span>
+            <span class="section-rule-line"></span>
+            <span class="section-rule-name">Orthomosaic mapping</span>
+          </div>
+          <div class="ortho-layout">
+            <div class="section-head">
+              <h2 id="ortho-title">Higher quality orthomosaic maps for clearer site decisions.</h2>
+              <p class="section-lead">
+                Scroll through a sample map to compare a rough baseline with a cleaner ScanAir
+                mapping result. Better source capture and processing means sharper surfaces,
+                fewer visual breaks, and easier plan review.
+              </p>
+            </div>
+            <div
+              class="ortho-compare"
+              data-ortho-compare
+              style="--wipe: 0%;"
+              aria-label="Before and after ortho map quality comparison"
+            >
+              <img
+                class="ortho-image ortho-before"
+                src="/assets/ortho/ortho-after.png"
+                alt="Lower quality ortho map before ScanAir processing"
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                class="ortho-image ortho-after"
+                src="/assets/ortho/ortho-before.png"
+                alt="Improved ortho map after ScanAir processing"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="ortho-label ortho-label-before">Before</span>
+              <span class="ortho-label ortho-label-after">After</span>
+              <span class="ortho-divider" aria-hidden="true">
+                <span class="ortho-divider-handle"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band-paper2 process" id="process" aria-labelledby="process-title">
+        <div class="shell">
+          <div class="section-rule">
+            <span class="section-rule-id">&sect; 04</span>
             <span class="section-rule-line"></span>
             <span class="section-rule-name">Process</span>
           </div>
@@ -444,7 +453,7 @@
         </div>
         <div class="shell">
           <div class="section-rule">
-            <span class="section-rule-id">&sect; 04</span>
+            <span class="section-rule-id">&sect; 05</span>
             <span class="section-rule-line"></span>
             <span class="section-rule-name">Use cases</span>
           </div>
@@ -571,7 +580,7 @@
         <div class="shell">
           <div class="tools-content">
             <div class="section-rule">
-              <span class="section-rule-id">&sect; 05</span>
+              <span class="section-rule-id">&sect; 06</span>
               <span class="section-rule-line"></span>
               <span class="section-rule-name">Available now</span>
             </div>
@@ -595,9 +604,11 @@
 
     <div data-site-footer></div>
     <script type="module" src="/src/components/footer.ts"></script>
+    <script type="module" src="/src/components/header.ts"></script>
     <script type="module" src="/src/components/nav.ts"></script>
     <script type="module" src="/src/components/samples.ts"></script>
     <script type="module" src="/src/components/carousel.ts"></script>
+    <script type="module" src="/src/components/ortho.ts"></script>
     <script type="module" src="/src/components/usecases.ts"></script>
     <script type="module" src="/src/components/process.ts"></script>
     <script type="module" src="/src/components/services.ts"></script>

@@ -62,6 +62,7 @@ const revealSelector = [
   ".section-head",
   ".timeline-step",
   ".samples-carousel",
+  ".ortho-layout",
   ".cta-strip",
   ".usecases-aside",
   ".tools-content",

@@ -47,7 +47,7 @@ async function handleContactRequest(request: Request, env: WorkerEnv): Promise<R
 
   if (!env.BREVO_API_KEY) {
     console.error("Missing BREVO_API_KEY secret.");
-    return jsonResponse({ message: "Contact form is not configured yet." }, 503);
+    return jsonResponse({ message: "Email delivery is unavailable right now." }, 503);
   }
 
   let payload: ContactPayload;

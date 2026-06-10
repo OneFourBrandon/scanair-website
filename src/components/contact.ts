@@ -82,6 +82,15 @@ contactForm?.addEventListener("submit", async (event) => {
     });
     const result = await readContactResponse(response);
 
+    if (response.status === 503) {
+      openMailFallback(formData);
+      setContactFormStatus(
+        "Email delivery is not connected on the website yet, so we opened an email draft instead.",
+        "success",
+      );
+      return;
+    }
+
     if (!response.ok) {
       throw new Error(result.message || "We could not send the message right now.");
     }
@@ -110,6 +119,34 @@ function setContactFormStatus(message: string, state: "pending" | "success" | "e
 
   contactFormStatus.textContent = message;
   contactFormStatus.dataset.state = state;
+}
+
+function openMailFallback(formData: FormData) {
+  const name = formValue(formData, "name") || "Website visitor";
+  const senderEmail = formValue(formData, "email");
+  const phoneValue = formValue(formData, "phone") || "Not provided";
+  const projectType = formValue(formData, "project_type") || "Not selected";
+  const message = formValue(formData, "message");
+  const subject = `ScanAir project inquiry from ${name}`;
+  const body = [
+    "New ScanAir website inquiry",
+    "",
+    `Name: ${name}`,
+    `Email: ${senderEmail}`,
+    `Phone: ${phoneValue}`,
+    `Project type: ${projectType}`,
+    "",
+    "Message:",
+    message,
+  ].join("\n");
+
+  window.location.href = `${emailHref}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function formValue(formData: FormData, key: string): string {
+  const value = formData.get(key);
+
+  return typeof value === "string" ? value.trim() : "";
 }
 
 async function readContactResponse(response: Response): Promise<{ message?: string }> {

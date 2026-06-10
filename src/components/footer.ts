@@ -23,7 +23,8 @@ if (footerMount) {
       <nav class="footer-col" aria-label="Footer navigation">
         <p class="footer-heading">Navigate</p>
         <a href="${sectionHref("services")}">Services</a>
-        <a href="${sectionHref("samples")}">Samples</a>
+        <a href="${sectionHref("samples")}">3D Gaussian Mapping</a>
+        <a href="${sectionHref("ortho-mapping")}">Ortho Mapping</a>
         <a href="${sectionHref("process")}">Process</a>
         <a href="${sectionHref("solutions")}">Use Cases</a>
       </nav>
