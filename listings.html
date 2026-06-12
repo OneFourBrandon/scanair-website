@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      document.documentElement.classList.add("js-reveal");
+    </script>
+    <meta
+      name="description"
+      content="Browse ScanAir listing demos with embedded 3D Gaussian splat property viewers for real estate and property marketing."
+    />
+    <meta property="og:title" content="ScanAir Listings | 3DGS Property Demos" />
+    <meta
+      property="og:description"
+      content="Reusable listing pages for interactive ScanAir 3DGS property demos."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/samples/residential_fallback.png" />
+    <title>ScanAir Listings | 3DGS Property Demos</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="listings-page">
+    <div data-site-header></div>
+
+    <main>
+      <section class="listing-index-hero" aria-labelledby="listings-title">
+        <div class="shell listing-index-hero-shell">
+          <div>
+            <p class="eyebrow">Property scan demos</p>
+            <h1 id="listings-title">Interactive 3D listings built for property pages.</h1>
+          </div>
+          <p>
+            ScanAir listing pages are reusable templates for realtor demos, property microsites,
+            and client-facing 3DGS showcases. Future listing pages stay tied to this category by
+            adding one listing entry with its SuperSplat iframe URL.
+          </p>
+        </div>
+      </section>
+
+      <section class="band band-paper listings-index" aria-label="Available listing demos">
+        <div class="shell">
+          <div class="section-rule">
+            <span class="section-rule-id">&sect; L</span>
+            <span class="section-rule-line"></span>
+            <span class="section-rule-name">Listings</span>
+          </div>
+          <div class="listing-grid" data-listings-grid></div>
+        </div>
+      </section>
+    </main>
+
+    <div data-site-footer></div>
+    <script type="module" src="/src/components/footer.ts"></script>
+    <script type="module" src="/src/components/header.ts"></script>
+    <script type="module" src="/src/components/nav.ts"></script>
+    <script type="module" src="/src/components/listings.ts"></script>
+  </body>
+</html>

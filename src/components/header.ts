@@ -19,6 +19,7 @@ if (headerMount) {
     <nav class="nav-links" aria-label="Main navigation">
       <a href="${sectionHref("services")}">Services</a>
       <a href="${sectionHref("samples")}">3D Gaussian Mapping</a>
+      <a href="/listings">Listings</a>
       <a href="${sectionHref("ortho-mapping")}">Ortho Mapping</a>
       <a href="${sectionHref("process")}">Process</a>
       <a href="${sectionHref("solutions")}">Use Cases</a>
@@ -44,6 +45,7 @@ if (headerMount) {
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
       <a href="${sectionHref("services")}">Services</a>
       <a href="${sectionHref("samples")}">3D Gaussian Mapping</a>
+      <a href="/listings">Listings</a>
       <a href="${sectionHref("ortho-mapping")}">Ortho Mapping</a>
       <a href="${sectionHref("process")}">Process</a>
       <a href="${sectionHref("solutions")}">Use Cases</a>

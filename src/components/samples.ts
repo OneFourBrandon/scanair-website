@@ -6,6 +6,15 @@ let fullscreenElement: Element | null = null;
 
 const INTERACTION_UNLOAD_GRACE_MS = 120000;
 
+const releaseEmbedKeyboardFocus = (iframe: HTMLIFrameElement) => {
+  window.setTimeout(() => {
+    if (document.activeElement === iframe) {
+      iframe.blur();
+      document.body.focus({ preventScroll: true });
+    }
+  }, 0);
+};
+
 const cancelPendingUnmount = (container: HTMLElement) => {
   window.clearTimeout(pendingUnmountTimers.get(container));
   pendingUnmountTimers.delete(container);
@@ -54,6 +63,16 @@ sampleEmbeds.forEach((container) => {
   container.addEventListener("focusin", () => markViewerInteraction(container));
 });
 
+window.addEventListener("blur", () => {
+  const activeElement = document.activeElement;
+
+  if (!(activeElement instanceof HTMLIFrameElement) || !activeElement.closest("[data-supersplat-embed]")) {
+    return;
+  }
+
+  releaseEmbedKeyboardFocus(activeElement);
+});
+
 const mountSuperSplatEmbed = (container: HTMLElement) => {
   const embedSrc = container.dataset.supersplatSrc?.trim();
 
@@ -71,7 +90,9 @@ const mountSuperSplatEmbed = (container: HTMLElement) => {
     return;
   }
 
-  if (embedUrl.hostname === "superspl.at" && !embedUrl.searchParams.has("noui")) {
+  const shouldShowSuperSplatUi = container.dataset.supersplatUi === "true";
+
+  if (embedUrl.hostname === "superspl.at" && !shouldShowSuperSplatUi && !embedUrl.searchParams.has("noui")) {
     embedUrl.searchParams.set("noui", "1");
   }
 
@@ -82,9 +103,12 @@ const mountSuperSplatEmbed = (container: HTMLElement) => {
   iframe.referrerPolicy = "strict-origin-when-cross-origin";
   iframe.allow = "fullscreen *; xr-spatial-tracking; gyroscope; accelerometer";
   iframe.allowFullscreen = true;
+  iframe.tabIndex = -1;
   iframe.setAttribute("webkitallowfullscreen", "true");
   iframe.setAttribute("mozallowfullscreen", "true");
   iframe.addEventListener("load", () => markViewerInteraction(container));
+  iframe.addEventListener("focus", () => releaseEmbedKeyboardFocus(iframe));
+  iframe.addEventListener("pointerdown", () => releaseEmbedKeyboardFocus(iframe));
 
   container.dataset.embedLoaded = "true";
   container.classList.add("is-embed-loaded");

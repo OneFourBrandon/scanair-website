@@ -1,0 +1,71 @@
+﻿/* ---- buttons ---------------------------------------------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.button span {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  color: var(--white);
+  background: var(--red);
+  box-shadow: 0 14px 30px -14px rgba(126, 20, 27, 0.6);
+}
+
+.button-primary:hover {
+  background: var(--red-bright);
+  box-shadow: 0 20px 38px -14px rgba(126, 20, 27, 0.7);
+}
+
+.button-ghost {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.button-ghost:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.button-dark {
+  color: var(--white);
+  background: var(--ink);
+}
+
+.button-dark:hover {
+  background: var(--ink-2);
+}
+
+.button-large {
+  min-height: 56px;
+  padding: 0 30px;
+  font-size: 1rem;
+}
+

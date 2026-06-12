@@ -1,0 +1,214 @@
+﻿/* ---- services flow ---------------------------------------- */
+
+.services-flow {
+  position: relative;
+  margin-top: clamp(36px, 4.4vw, 60px);
+}
+
+.flow-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 54px);
+  align-items: center;
+  padding: clamp(28px, 3.6vw, 48px) 0;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.flow-row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.flow-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(197, 32, 42, 0.07), transparent 58%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.flow-row:hover::before {
+  opacity: 1;
+}
+
+.flow-marker {
+  position: relative;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+}
+
+.flow-node {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 6vw, 64px);
+  height: clamp(52px, 6vw, 64px);
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  color: var(--red);
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease,
+    color 260ms ease,
+    transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flow-node svg {
+  width: 46%;
+  height: 46%;
+}
+
+.flow-row:hover .flow-node {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+  transform: scale(1.07);
+}
+
+.flow-body {
+  position: relative;
+  padding-right: clamp(60px, 7vw, 104px);
+}
+
+.flow-step {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.flow-body .index-row-title,
+.flow-body .index-row-text {
+  position: relative;
+}
+
+.flow-body .index-row-title {
+  transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.flow-row:hover .index-row-title {
+  transform: translateX(8px);
+}
+
+/* ---- services flight line --------------------------------- */
+
+.services-flightline {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.services-flightline-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.services-flightline-path {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.5;
+}
+
+.services-waypoint {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow:
+    0 0 0 4px rgba(197, 32, 42, 0.14),
+    0 0 16px 2px rgba(197, 32, 42, 0.55);
+  opacity: 0;
+}
+
+.services-waypoint::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.services-waypoint-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--red);
+}
+
+.services-drone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(32px, 4.2vw, 42px);
+  height: clamp(32px, 4.2vw, 42px);
+  color: var(--ink);
+  opacity: 0;
+}
+
+.services-drone-glow {
+  position: absolute;
+  top: -37.5%;
+  left: -37.5%;
+  width: 175%;
+  height: 175%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(197, 32, 42, 0.5),
+    rgba(197, 32, 42, 0) 68%
+  );
+  opacity: 0.5;
+}
+
+.services-drone-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.services-drone-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 5px 7px rgba(15, 17, 21, 0.28));
+}
+
+.services-drone-rotor {
+  stroke: var(--red);
+  stroke-dasharray: 5 7;
+}
+
+@media (max-width: 720px) {
+  .flow-row {
+    grid-template-columns: 58px 1fr;
+    gap: 16px;
+    padding: 26px 0;
+  }
+
+  .flow-node {
+    width: 46px;
+    height: 46px;
+  }
+
+  .flow-body {
+    padding-right: 46px;
+  }
+}
+

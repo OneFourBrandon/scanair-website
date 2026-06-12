@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      document.documentElement.classList.add("js-reveal");
+    </script>
+    <meta
+      name="description"
+      content="ScanAir interactive 3DGS listing demo with an embedded SuperSplat property viewer."
+    />
+    <meta property="og:title" content="ScanAir Listing Demo" />
+    <meta
+      property="og:description"
+      content="Interactive ScanAir 3DGS listing demo with a SuperSplat property viewer."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/samples/residential_fallback.png" />
+    <title>ScanAir Listing Demo</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="listing-page">
+    <div data-site-header></div>
+
+    <main data-listing-detail></main>
+
+    <div data-site-footer></div>
+    <script type="module" src="/src/components/footer.ts"></script>
+    <script type="module" src="/src/components/header.ts"></script>
+    <script type="module" src="/src/components/nav.ts"></script>
+    <script type="module" src="/src/components/listing-detail.ts"></script>
+    <script type="module" src="/src/components/listing-motion.ts"></script>
+    <script type="module" src="/src/components/samples.ts"></script>
+  </body>
+</html>

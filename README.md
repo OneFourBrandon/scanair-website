@@ -53,6 +53,18 @@ Then open `http://localhost:8080`.
 
 The homepage Samples section is ready for SuperSplat embeds. Add a shared SuperSplat viewer URL to a sample card's `data-supersplat-src` value in `index.html`; the page lazy-loads the iframe when the section nears the viewport.
 
+## Listings
+
+The real estate listing pages are driven by `src/data/listings.ts`.
+
+To add or update a listing:
+
+1. Add a listing object with a unique `slug`.
+2. Set `splatSrc` to the SuperSplat iframe URL, such as `https://superspl.at/s?id=...`.
+3. Add a matching fallback screenshot in `public/assets/samples/` and set `fallbackSrc`.
+
+The category page lives at `/listings`, and each listing is generated at `/listings/<slug>` from the shared `listing.html` template. Vite creates the pretty URL folders during `npm run build`, so future listing pages should not need copied HTML.
+
 ## Palette
 
 - Oxblood red: `#5B0F14`
