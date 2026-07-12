@@ -116,11 +116,6 @@
     --slide-w: 86vw;
   }
 
-  .ortho-compare {
-    aspect-ratio: 4 / 2.8;
-    min-height: 320px;
-  }
-
   .listing-index-hero-shell,
   .listing-hero-shell {
     grid-template-columns: 1fr;
@@ -193,24 +188,6 @@
 
   .ortho-mapping {
     padding-block: clamp(44px, 10vw, 64px);
-  }
-
-  .ortho-layout {
-    gap: 24px;
-  }
-
-  .ortho-compare {
-    width: var(--shell);
-    margin-left: 0;
-    aspect-ratio: 4 / 5;
-    min-height: 0;
-    border: 1px solid rgba(20, 22, 26, 0.16);
-  }
-
-  .ortho-label {
-    top: 14px;
-    padding: 6px 9px;
-    font-size: 0.61rem;
   }
 
   .listing-index-hero,

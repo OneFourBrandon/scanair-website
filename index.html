@@ -339,37 +339,100 @@
             <span class="section-rule-name">Orthomosaic mapping</span>
           </div>
           <div class="ortho-layout">
-            <div class="section-head">
-              <h2 id="ortho-title">Higher quality orthomosaic maps for clearer site decisions.</h2>
-              <p class="section-lead">
-                Scroll through a sample map to compare a rough baseline with a cleaner ScanAir
-                mapping result. Better source capture and processing means sharper surfaces,
-                fewer visual breaks, and easier plan review.
-              </p>
+            <div class="ortho-intro">
+              <div class="section-head">
+                <p class="ortho-kicker">Survey-grade site context</p>
+                <h2 id="ortho-title">Sharper site maps.<br />Clearer decisions.</h2>
+              </div>
+              <div class="ortho-summary">
+                <p>
+                  High-resolution capture preserves the boundaries, surfaces, and site conditions
+                  that ordinary satellite imagery leaves unclear. Move the divider to see what
+                  better source data brings into focus.
+                </p>
+                <dl class="ortho-specs" aria-label="Orthomosaic deliverable highlights">
+                  <div>
+                    <dt>Capture</dt>
+                    <dd>Low-altitude RGB</dd>
+                  </div>
+                  <div>
+                    <dt>Output</dt>
+                    <dd>Georeferenced map</dd>
+                  </div>
+                  <div>
+                    <dt>Use</dt>
+                    <dd>Review &amp; planning</dd>
+                  </div>
+                </dl>
+              </div>
             </div>
-            <div
-              class="ortho-compare"
-              data-ortho-compare
-              style="--wipe: 0%;"
-              aria-label="Before and after ortho map quality comparison"
-            >
-              <img
-                class="ortho-image ortho-before"
-                src="/assets/ortho/ortho-before.png"
-                alt="Lower quality ortho map before ScanAir processing"
-                loading="lazy"
-                decoding="async"
-              />
-              <img
-                class="ortho-image ortho-after"
-                src="/assets/ortho/ortho-after.png"
-                alt="Improved ortho map after ScanAir processing"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="ortho-label ortho-label-before" data-ortho-label>Before</span>
-              <span class="ortho-divider" aria-hidden="true"></span>
-            </div>
+            <figure class="ortho-desk">
+              <div class="ortho-desk-header" aria-hidden="true">
+                <span><b>SA</b> / ORTHO_01</span>
+                <span class="ortho-desk-title">Site mapping viewport</span>
+                <span>RGB / NORTH BAY, ON</span>
+              </div>
+              <div
+                class="ortho-compare"
+                data-ortho-compare
+                style="--split: 58%;"
+                aria-label="Baseline satellite imagery and ScanAir orthomosaic comparison"
+              >
+                <img
+                  class="ortho-image ortho-before"
+                  src="/assets/ortho/ortho-before.png"
+                  alt="Lower-resolution satellite reference of an urban site"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  class="ortho-image ortho-after"
+                  src="/assets/ortho/ortho-after.png"
+                  alt="High-resolution ScanAir orthomosaic showing detailed site conditions"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="ortho-label ortho-label-before">Baseline reference</span>
+                <span class="ortho-label ortho-label-after">ScanAir capture</span>
+                <span class="ortho-divider" aria-hidden="true">
+                  <span class="ortho-handle">
+                    <span>&larr;</span>
+                    <span>&rarr;</span>
+                  </span>
+                </span>
+                <input
+                  class="ortho-range"
+                  data-ortho-range
+                  type="range"
+                  min="8"
+                  max="92"
+                  value="58"
+                  aria-label="Adjust map comparison divider"
+                />
+              </div>
+              <figcaption class="ortho-desk-footer">
+                <span class="ortho-scale" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <span>Drag to compare</span>
+                <span>Baseline reference / ScanAir orthomosaic</span>
+              </figcaption>
+            </figure>
+            <ul class="ortho-outcomes" aria-label="Benefits of higher resolution mapping">
+              <li>
+                <span>01</span>
+                <strong>Sharper boundaries</strong>
+                <p>Read rooflines, edges, access points, and work limits with less ambiguity.</p>
+              </li>
+              <li>
+                <span>02</span>
+                <strong>Cleaner surfaces</strong>
+                <p>See ground conditions and site changes without the blur of broad satellite capture.</p>
+              </li>
+              <li>
+                <span>03</span>
+                <strong>Easier plan review</strong>
+                <p>Give project teams a current visual record they can reference and share.</p>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -404,6 +467,17 @@
           <ol class="timeline">
             <li class="timeline-step">
               <span class="timeline-num" aria-hidden="true">01</span>
+              <span class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 17 32 32 49 17M15 47 32 32 49 47" />
+                  <rect x="24" y="24" width="16" height="16" rx="4" />
+                  <circle cx="32" cy="32" r="4" />
+                  <circle cx="14" cy="16" r="9" />
+                  <circle cx="50" cy="16" r="9" />
+                  <circle cx="14" cy="48" r="9" />
+                  <circle cx="50" cy="48" r="9" />
+                </svg>
+              </span>
               <div class="timeline-detail">
                 <div class="timeline-head">
                   <h3>Capture</h3>
@@ -414,6 +488,13 @@
             </li>
             <li class="timeline-step">
               <span class="timeline-num" aria-hidden="true">02</span>
+              <span class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m32 7 22 12.5v25L32 57 10 44.5v-25Z" />
+                  <path d="m10 19.5 22 13 22-13M32 32.5V57" />
+                  <path d="m21 13.2 22 12.6v25" opacity=".48" />
+                </svg>
+              </span>
               <div class="timeline-detail">
                 <div class="timeline-head">
                   <h3>Reconstruct</h3>
@@ -424,6 +505,13 @@
             </li>
             <li class="timeline-step">
               <span class="timeline-num" aria-hidden="true">03</span>
+              <span class="timeline-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 42v10h44V42" />
+                  <path d="M32 7v34M20 29l12 12 12-12" />
+                  <path d="M17 52v5h30v-5" opacity=".48" />
+                </svg>
+              </span>
               <div class="timeline-detail">
                 <div class="timeline-head">
                   <h3>Deliver</h3>
