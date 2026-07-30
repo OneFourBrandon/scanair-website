@@ -1,0 +1,141 @@
+/* ---- Firefox / Zen text rendering ------------------------- */
+
+@-moz-document url-prefix() {
+  :root {
+    text-rendering: auto;
+  }
+
+  /*
+   * Firefox renders IBM Plex Mono poorly in this interface, particularly
+   * at small sizes. Use the sturdier UI stack for every mono text element
+   * so numbered markers and labels stay consistent across the site.
+   */
+  .button span,
+  .eyebrow,
+  .hero-splat-disclaimer span,
+  .hero-splat-disclaimer p,
+  .hero-status,
+  .hero-meta,
+  .section-rule-id,
+  .section-rule-name,
+  .timeline-num,
+  .timeline-tag,
+  .preview-label,
+  .exhibit-index,
+  .exhibit-tag,
+  .carousel-progress,
+  .index-num,
+  .flow-step,
+  .ortho-kicker,
+  .ortho-specs dt,
+  .ortho-desk-header,
+  .ortho-desk-footer,
+  .ortho-label,
+  .ortho-handle,
+  .ortho-outcomes span,
+  .listing-card-index,
+  .listing-card-kicker,
+  .listing-facts dt,
+  .contact-method span,
+  .contact-reveal,
+  .contact-coords,
+  .form-field span,
+  .footer-heading,
+  .footer-base,
+  .legal-badge,
+  .legal-contact-grid span,
+  .legal-reveal,
+  .roof-hero .eyebrow,
+  .roof-visual-label,
+  .roof-index span,
+  .roof-steps strong {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-rendering: auto;
+  }
+
+  .eyebrow,
+  .hero-splat-disclaimer span,
+  .hero-status,
+  .hero-meta,
+  .timeline-tag,
+  .preview-label,
+  .exhibit-tag,
+  .flow-step,
+  .ortho-kicker,
+  .ortho-specs dt,
+  .ortho-desk-header,
+  .ortho-desk-footer,
+  .ortho-label,
+  .listing-card-kicker,
+  .listing-facts dt,
+  .contact-method span,
+  .contact-reveal,
+  .contact-coords,
+  .form-field span,
+  .footer-heading,
+  .footer-base,
+  .legal-badge,
+  .legal-contact-grid span,
+  .legal-reveal,
+  .roof-hero .eyebrow,
+  .roof-visual-label,
+  .roof-index span,
+  .roof-steps strong {
+    font-size: max(0.76rem, 12px);
+    letter-spacing: 0.08em;
+  }
+
+  .section-rule-id {
+    font-size: max(0.84rem, 13px);
+    letter-spacing: 0.04em;
+  }
+
+  .section-rule-name {
+    font-size: max(0.78rem, 12px);
+    letter-spacing: 0.1em;
+  }
+
+  .carousel-progress {
+    font-size: max(0.8rem, 13px);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-splat-disclaimer p {
+    font-size: max(0.78rem, 12px);
+  }
+
+  .ortho-outcomes span {
+    font-size: max(0.72rem, 12px);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links a,
+  .footer-col a,
+  .mobile-menu a:not(.button) {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+  }
+
+  .site-footer,
+  .footer-note,
+  .hero-meta,
+  .contact-coords,
+  .exhibit-tag,
+  .ortho-desk-header,
+  .ortho-desk-footer {
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .footer-heading,
+  .footer-base,
+  .listing-facts dt,
+  .contact-method span {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .band-dark .section-rule-name,
+  .contact-aside .section-rule-name {
+    color: rgba(255, 255, 255, 0.76);
+  }
+}

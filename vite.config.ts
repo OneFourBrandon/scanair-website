@@ -17,6 +17,7 @@ type GeneratedRoute = {
 const htmlEntries: HtmlEntry[] = [
   { name: "main", file: "index.html" },
   { name: "contact", file: "contact.html", prettyPath: "/contact" },
+  { name: "roofInspections", file: "roof-inspections.html", prettyPath: "/roof-inspections" },
   { name: "privacy", file: "privacy.html", prettyPath: "/privacy" },
   { name: "terms", file: "terms.html", prettyPath: "/terms" },
   { name: "listings", file: "listings.html", prettyPath: "/listings" },

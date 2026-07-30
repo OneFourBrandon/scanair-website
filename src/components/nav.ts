@@ -68,6 +68,12 @@ const revealSelector = [
   ".tools-content",
   ".contact-aside-inner",
   ".contact-form",
+  ".roof-hero-copy",
+  ".roof-hero-visual",
+  ".roof-note",
+  ".roof-index li",
+  ".roof-steps",
+  ".roof-deliverables-grid",
 ].join(",");
 
 const revealTargets = Array.from(
