@@ -1,6 +1,7 @@
-# ScanAir Website
+# Welcome to the home of ScanAir!
+Marketing landing page for `scanair.ca`. A business soon-to-be located in Guelph, Ontario.
 
-Marketing landing page for `scanair.ca`.
+# Instructions to setup & run the ScanAir Homepage
 
 ## Development
 
@@ -44,10 +45,7 @@ docker run --rm -p 8080:80 scanair-website
 
 Then open `http://localhost:8080`.
 
-## Assets
-
-- `public/assets/scanair-logo-red.png` comes from `C:\Users\devil\Desktop\ScanAir\Graphics\Export\1024w\Asset 4.png`.
-- `public/assets/hero-property-scan.png` comes from the generated ScanAir landing page hero concept.
+# Instructions for maintainers
 
 ## Samples
 
