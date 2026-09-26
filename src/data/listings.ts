@@ -16,7 +16,7 @@ export const listings: Listing[] = [
   {
     slug: "1-lakeview",
     title: "1 Lakeview Drive",
-    location: "North Bay, Ontario, P1C 1C7",
+    location: "Guelph, Ontario",
     status: "For Sale (Example)",
     splatSrc: "https://superspl.at/s?id=f0aa37f0",
     fallbackSrc: "/assets/samples/residential_fallback.png",

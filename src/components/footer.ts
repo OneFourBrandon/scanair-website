@@ -18,7 +18,7 @@ if (footerMount) {
           <img src="/assets/scanair-logo-red.png" alt="ScanAir" />
           <span class="brand-word" aria-hidden="true">Scan<span>Air</span></span>
         </a>
-        <p>Local drone scanning, exterior documentation, and planning visuals for North Bay, Ontario & surrounding areas.</p>
+        <p>Local drone scanning, exterior documentation, and planning visuals for Guelph, Ontario & surrounding areas.</p>
       </div>
       <nav class="footer-col" aria-label="Footer navigation">
         <p class="footer-heading">Navigate</p>
@@ -32,7 +32,7 @@ if (footerMount) {
         <p class="footer-heading">Get in touch</p>
         <a href="/contact">Contact ScanAir</a>
         <a href="https://path.scanair.ca">DJI Path Creator</a>
-        <span class="footer-note">North Bay, Ontario</span>
+        <span class="footer-note">Guelph, Ontario</span>
         <div class="footer-legal">
           <a href="/privacy">Privacy Policy</a>
           <a href="/terms">Terms of Service</a>
